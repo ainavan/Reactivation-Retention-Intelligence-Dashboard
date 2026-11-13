@@ -1,0 +1,1527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Retention Intelligence v3.9 | Account Management</title>
+<style>
+:root{--bg:#f4f6fb;--surface:#fff;--ink:#20233f;--muted:#7b819b;--line:#e7eaf3;--nav:#17172f;--nav2:#26234b;--purple:#6655d9;--purple2:#9a8cf0;--mint:#39bda5;--green:#168b72;--amber:#d49a37;--red:#d45c75;--blue:#5c83df;--shadow:0 12px 32px rgba(31,35,78,.065)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:11px;padding:10px 14px;background:var(--purple);color:#fff;font-weight:700;transition:.16s}button:hover{filter:brightness(1.06);transform:translateY(-1px)}button:disabled{opacity:.55;cursor:wait;transform:none}button.secondary{background:#f0edfb;color:#5945a5}button.soft{background:#f5f6fa;color:#565b75;border:1px solid var(--line)}button.ghost{background:transparent;color:var(--muted);border:1px solid var(--line)}
+input,select{border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:#fff;color:var(--ink)}
+.app{min-height:100vh;display:grid;grid-template-columns:252px 1fr}.sidebar{background:linear-gradient(180deg,#17172f 0%,#222044 58%,#302b61 100%);color:#f4f1ff;padding:22px 15px;display:flex;flex-direction:column;gap:23px}.brand{display:flex;align-items:center;gap:11px;padding:4px 6px 12px}.brandmark{width:39px;height:39px;border-radius:13px;background:linear-gradient(135deg,#c7b6ff,#7759d9);display:grid;place-items:center;color:#251d48;font-weight:900;box-shadow:0 7px 18px #7053c855}.brandname{font-weight:800;font-size:15px;letter-spacing:.01em}.brandtag{font-size:10px;color:#a8a2c2;margin-top:3px;letter-spacing:.14em;text-transform:uppercase}.navlabel{font-size:9px;letter-spacing:.16em;color:#8f89ad;font-weight:800;padding:0 10px 7px}.nav{display:grid;gap:5px}.nav button{display:flex;align-items:center;gap:12px;background:transparent;color:#c4bfd8;text-align:left;font-weight:600;padding:11px 12px;border-radius:11px;font-size:12px}.nav button .ico{width:19px;text-align:center;font-size:16px;color:#a99bcf}.nav button.active,.nav button:hover{background:#413467;color:#fff;transform:none}.nav button.active .ico{color:#d2c3ff}.sidebottom{margin-top:auto;background:#ffffff0d;border:1px solid #ffffff17;border-radius:13px;padding:13px;color:#c7c1dd;font-size:10px;line-height:1.6}.sidebottom strong{color:#fff;display:block;font-size:11px;margin-bottom:4px}
+.main{padding:25px 30px 34px;min-width:0}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.kicker{font-size:10px;letter-spacing:.16em;color:var(--purple);font-weight:850;text-transform:uppercase}.title{font-size:26px;font-weight:850;letter-spacing:-.045em;margin:5px 0 4px}.subtitle{font-size:12px;color:var(--muted)}.topright{display:flex;align-items:center;gap:9px;flex-wrap:wrap}.datepill{display:flex;align-items:center;gap:8px;border:1px solid var(--line);background:#fff;border-radius:12px;padding:9px 12px;color:#5f6279;font-size:11px;font-weight:700}.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px #e1f6ee}
+.page{display:none}.page.active{display:block}.hero{background:linear-gradient(118deg,#25244f 0%,#5547b7 58%,#786ce1 100%);border-radius:19px;padding:20px 22px;color:white;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:16px;box-shadow:0 14px 34px #5941a526}.hero h2{margin:0 0 5px;font-size:17px;letter-spacing:-.02em}.hero p{margin:0;color:#ddd6fb;font-size:11px;line-height:1.5}.hero .hero-right{text-align:right;flex:none}.hero .bigdate{font-size:19px;font-weight:800}.hero .caption{font-size:10px;color:#d1c7f6;margin-top:4px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:14px}.kpi{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 17px;box-shadow:var(--shadow);position:relative;overflow:hidden;min-width:0}.kpi:after{content:"";position:absolute;right:-23px;top:-25px;width:76px;height:76px;border-radius:50%;background:var(--tint,#f0edff)}.kpi-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}.kpi-label{font-size:11px;color:var(--muted);font-weight:650}.kpi-icon{width:28px;height:28px;border-radius:9px;display:grid;place-items:center;color:var(--accent,var(--purple));background:var(--tint,#f0edff);font-size:14px}.kpi-value{font-size:28px;font-weight:850;letter-spacing:-.055em;margin:11px 0 4px;position:relative;z-index:1}.kpi-foot{font-size:10px;color:var(--muted);position:relative;z-index:1}.kpi-foot b{color:var(--green)}
+.grid2{display:grid;grid-template-columns:1.35fr 1fr;gap:14px;margin-bottom:14px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:14px}.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:17px 18px;box-shadow:var(--shadow);min-width:0}.panelhead{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.paneltitle{font-size:13px;font-weight:800;letter-spacing:-.01em}.panelsub{font-size:10px;color:var(--muted);margin-top:3px}.tag{display:inline-flex;align-items:center;gap:5px;border-radius:99px;padding:5px 9px;font-size:9px;font-weight:800;background:#f1effa;color:#6755a6;white-space:nowrap}.tag.green{background:#e7f7f0;color:#168560}.tag.amber{background:#fff4e0;color:#a87517}.tag.red{background:#ffedf0;color:#be5164}.tag.blue{background:#eaf1ff;color:#547bd0}.note{background:#f4f1ff;border:1px solid #e7e0ff;color:#62538e;border-radius:12px;padding:11px 13px;font-size:10px;line-height:1.55;margin-bottom:14px}.note strong{color:#40326f}.note.warning{background:#fff8ea;border-color:#f3e4c4;color:#88631f}
+.barlist{display:grid;gap:11px}.barrow{display:grid;grid-template-columns:minmax(145px,1.2fr) 2fr 48px;gap:9px;align-items:center;font-size:10px}.barlabel{color:#676b82;line-height:1.3}.bartrack{height:8px;border-radius:99px;background:#f0eff6;overflow:hidden}.barfill{height:100%;border-radius:99px;background:linear-gradient(90deg,#ad99ed,#7657d6)}.barvalue{text-align:right;font-weight:800;color:#47435f;font-size:10px}.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:9px;color:var(--muted);margin-top:13px}.legend i{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:5px;background:var(--purple)}
+.chart{height:222px;width:100%;display:block;overflow:visible}.axistext{font:10px Inter,Arial;fill:#999bb0}.gridline{stroke:#eeedf4;stroke-width:1}.linechart{fill:none;stroke:var(--purple);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.area{fill:url(#areaGradient)}.dotpoint{fill:#fff;stroke:var(--purple);stroke-width:2}.chart-legend{display:flex;gap:15px;font-size:10px;color:var(--muted);margin-top:7px}.chart-legend span:before{content:"";display:inline-block;width:8px;height:8px;background:var(--purple);border-radius:50%;margin-right:6px}.chart-legend .mint:before{background:var(--mint)}
+.sales-table,.data-table{width:100%;border-collapse:collapse;font-size:11px;white-space:nowrap}.sales-table th,.data-table th{text-align:left;background:#faf9fd;color:#9092a5;font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:11px 10px;border-bottom:1px solid var(--line)}.sales-table td,.data-table td{padding:12px 10px;border-bottom:1px solid #f0eff5}.sales-table tbody tr,.data-table tbody tr{cursor:pointer}.sales-table tbody tr:hover,.data-table tbody tr:hover{background:#faf8ff}.sales-table tbody tr:last-child td,.data-table tbody tr:last-child td{border-bottom:0}.salesname{display:flex;align-items:center;gap:8px;font-weight:750}.avatar{width:26px;height:26px;border-radius:9px;background:#eee9ff;color:#6b52c4;display:grid;place-items:center;font-size:10px;font-weight:850}.num{font-variant-numeric:tabular-nums}.positive{color:var(--green);font-weight:800}
+.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:12px}.empty{padding:28px;text-align:center;color:var(--muted);font-size:11px}.summarycards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.mini{background:#faf9fd;border:1px solid #eeedf4;border-radius:12px;padding:12px}.mini .label{font-size:9px;color:var(--muted)}.mini .value{font-size:19px;font-weight:850;margin-top:6px}
+.pagehead{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}.pagehead h2{font-size:20px;letter-spacing:-.04em;margin:0 0 4px}.pagehead p{color:var(--muted);font-size:11px;margin:0}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.filters input,.filters select{min-width:150px;font-size:11px}.uploadgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.uploadcard{background:#fff;border:1px solid var(--line);border-radius:16px;padding:19px;box-shadow:var(--shadow)}.uploadicon{width:42px;height:42px;border-radius:13px;background:#eee9ff;color:var(--purple);display:grid;place-items:center;font-size:20px;margin-bottom:12px}.uploadcard h3{margin:0 0 6px;font-size:14px}.uploadcard p{font-size:10px;color:var(--muted);line-height:1.55;min-height:46px}.dropzone{background:#faf9ff;border:1.5px dashed #c9c0e8;border-radius:12px;padding:15px;text-align:center;margin-top:12px}.dropzone input{max-width:100%;font-size:10px;border:0;background:transparent}.uploadstatus{font-size:10px;color:var(--muted);margin-top:10px;line-height:1.5}.small{font-size:10px;color:var(--muted)}.drawerback{display:none;position:fixed;inset:0;background:#17152d88;z-index:30;justify-content:flex-end}.drawerback.open{display:flex}.drawer{width:min(600px,100%);height:100%;overflow:auto;background:#fff;padding:22px 24px;box-shadow:-10px 0 50px #11132c22}.drawerhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.drawerhead h3{margin:0;font-size:17px}.field{padding:10px 0;border-bottom:1px solid var(--line)}.field label{display:block;font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.field strong{font-size:12px}.proofpreview{max-width:100%;max-height:300px;object-fit:contain;border:1px solid var(--line);border-radius:10px;margin-top:10px}.drawerinput{width:100%;margin:6px 0 10px;font-size:11px}.noticebar{padding:10px 12px;border-radius:10px;background:#fff7e8;color:#89631e;border:1px solid #f1e4ca;font-size:10px;line-height:1.55}.footer{margin-top:20px;color:#9a9caf;font-size:9px;line-height:1.5}
+.proof-thumb{width:62px;height:42px;object-fit:cover;border:1px solid var(--line);border-radius:7px;background:#f7f6fb}
+.proof-images{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.proof-images img{max-width:100%;max-height:360px;object-fit:contain;border:1px solid var(--line);border-radius:10px;background:#faf9fd}
+.proof-status{font-size:9px;font-weight:800;padding:4px 8px;border-radius:99px;display:inline-flex;white-space:nowrap}
+.proof-ok{background:#e7f7f0;color:#168560}.proof-warn{background:#fff4df;color:#a87517}.proof-bad{background:#ffedf0;color:#be5164}
+.audit-progress{font-size:10px;color:var(--muted);margin-top:8px}
+.proof-summary{font:11px/1.6 Inter,system-ui,sans-serif}
+.inline-filter{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.exception-reason{white-space:normal;min-width:220px;max-width:380px;line-height:1.45}
+
+
+.rate-badge{display:inline-flex;align-items:center;border-radius:99px;padding:4px 8px;font-size:10px;font-weight:800;white-space:nowrap}
+.rate-good{background:#e7f7f0;color:#168560}.rate-watch{background:#fff4df;color:#a87517}.rate-low{background:#ffedf0;color:#be5164}
+.eval-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.eval-card{border:1px solid var(--line);border-radius:13px;padding:13px;background:#fff}
+.eval-card h4{margin:0 0 6px;font-size:12px}.eval-card p{font-size:10px;color:var(--muted);line-height:1.55;margin:5px 0 0}
+.currency-toggle{cursor:help;border-bottom:1px dashed #9a8acb;padding-bottom:1px;white-space:nowrap}
+.currency-hint{font-size:9px;color:var(--muted);font-weight:500;margin-left:5px}
+.compare-bar{height:13px;border-radius:99px;background:#f1eff7;overflow:hidden;display:flex;margin:9px 0}
+.compare-contacted{background:linear-gradient(90deg,#31b28e,#68cfad);height:100%}.compare-uncontacted{background:linear-gradient(90deg,#a99be6,#7863cb);height:100%}
+.compare-metric{background:#faf9fd;border:1px solid var(--line);border-radius:12px;padding:12px}
+.compare-metric .big{font-size:22px;font-weight:850;letter-spacing:-.04em}
+@media(max-width:760px){.eval-grid{grid-template-columns:1fr}}
+
+.hidden{display:none !important}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}.grid3{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.app{grid-template-columns:1fr}.sidebar{padding:12px;gap:9px}.brand{padding-bottom:5px}.nav{grid-template-columns:repeat(3,1fr)}.nav button{padding:9px 8px;font-size:10px;gap:6px}.nav button .ico{width:15px}.navlabel{padding-top:4px}.sidebottom{display:none}.main{padding:16px}.topbar{align-items:flex-start;flex-direction:column}.hero{align-items:flex-start;flex-direction:column}.hero .hero-right{text-align:left}.uploadgrid{grid-template-columns:1fr}.grid3{grid-template-columns:1fr}.title{font-size:23px}}
+@media(max-width:480px){.nav{grid-template-columns:repeat(2,1fr)}.kpis{gap:8px}.kpi{padding:12px}.kpi-value{font-size:23px}.barrow{grid-template-columns:minmax(120px,1.1fr) 1.5fr 40px}.summarycards{grid-template-columns:1fr 1fr}}
+
+.command-hero{background:radial-gradient(circle at 88% 12%,rgba(255,255,255,.18),transparent 28%),linear-gradient(120deg,#25244f,#5147ae 58%,#6d65d8);border-radius:22px;padding:23px 25px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:16px;box-shadow:0 18px 40px rgba(73,65,164,.18)}
+.command-hero h2{margin:0 0 7px;font-size:21px;letter-spacing:-.045em}.command-hero p{margin:0;color:#e0defb;font-size:12px;line-height:1.6;max-width:650px}.command-hero-meta{text-align:right;min-width:160px}.command-hero-meta strong{display:block;font-size:17px}.command-hero-meta span{font-size:10px;color:#d6d3f7;letter-spacing:.1em;font-weight:800}
+.command-toolbar{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#fff;border:1px solid var(--line);border-radius:16px;padding:13px 15px;margin-bottom:14px;box-shadow:var(--shadow)}
+.command-toolbar .target-controls{display:flex;align-items:end;gap:9px;flex-wrap:wrap}.command-toolbar label{display:flex;flex-direction:column;gap:5px;color:var(--muted);font-size:10px;font-weight:750;letter-spacing:.04em}.command-toolbar select{min-width:175px}.command-toolbar input{width:82px;padding:9px 10px}.target-caption{font-size:10px;color:var(--muted);max-width:210px;line-height:1.45}
+.command-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:14px;margin-bottom:14px}.command-panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:17px;box-shadow:var(--shadow);min-width:0}.command-panel .paneltitle{font-size:13px;font-weight:850}.command-panel .panelsub{font-size:10px;color:var(--muted);margin-top:4px}
+.command-score{display:flex;align-items:center;gap:12px}.score-ring{width:54px;height:54px;flex:none;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#38b99f var(--score-angle),#edf0f7 0);position:relative}.score-ring:before{content:"";position:absolute;inset:5px;background:#fff;border-radius:50%}.score-ring b{position:relative;font-size:13px}.command-rank-table td,.command-rank-table th{white-space:nowrap}.command-rank-table tr{cursor:pointer}.command-rank-table tr:hover{background:#f7f6ff}
+.signal-list{display:grid;gap:9px}.signal-item{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border-radius:12px;background:#f8f8fc;border:1px solid #eff0f6}.signal-dot{width:8px;height:8px;border-radius:50%;margin-top:4px;flex:none}.signal-item strong{font-size:11px;display:block;margin-bottom:3px}.signal-item span{font-size:10px;color:var(--muted);line-height:1.5}.signal-item.warning .signal-dot{background:#d79a35}.signal-item.success .signal-dot{background:#29a889}.signal-item.info .signal-dot{background:#6b65d7}
+.mini-progress{height:7px;background:#edf0f6;border-radius:99px;overflow:hidden;min-width:70px}.mini-progress i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#7b70e7,#39bda5)}
+.command-footnote{font-size:10px;color:var(--muted);line-height:1.55;margin-top:11px}
+@media(max-width:900px){.command-grid{grid-template-columns:1fr}.command-hero{align-items:flex-start;flex-direction:column}.command-hero-meta{text-align:left}.command-toolbar{align-items:stretch}.command-toolbar .target-controls{width:100%}}
+@media(max-width:620px){.command-toolbar .target-controls{display:grid;grid-template-columns:1fr 1fr}.command-toolbar select{min-width:0;width:100%}.command-toolbar input{width:100%}.command-rank-table{min-width:700px}}
+
+
+
+/* Weekly workflow tracker */
+.workflow-switch{display:flex;gap:8px;margin:0 0 14px;padding:5px;background:#f1f2f8;border:1px solid var(--line);border-radius:12px;width:max-content}
+.workflow-switch button{border:0;background:transparent;color:var(--muted);padding:9px 15px;border-radius:9px;font-weight:750;font-size:11px;cursor:pointer}
+.workflow-switch button.active{background:#fff;color:var(--ink);box-shadow:0 2px 8px #20234a12}
+.workflow-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:14px}
+.workflow-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px}
+.workflow-card .wf-label{font-size:10px;color:var(--muted);font-weight:800;text-transform:uppercase;letter-spacing:.06em}
+.workflow-card .wf-value{font-size:23px;font-weight:850;letter-spacing:-.04em;margin:7px 0 3px}
+.workflow-card .wf-sub{font-size:10px;color:var(--muted)}
+.workflow-form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.workflow-form-grid label{display:grid;gap:6px;font-size:10px;font-weight:750;color:var(--muted)}
+.workflow-form-grid input,.workflow-form-grid select,.workflow-form-grid textarea{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 10px;background:#fff;color:var(--ink);font:inherit;font-size:12px}
+.workflow-form-grid textarea{min-height:64px;resize:vertical}
+.workflow-fieldset{border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}
+.workflow-fieldset legend{font-size:11px;font-weight:850;padding:0 7px;color:var(--ink)}
+.workflow-actions{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px}
+.workflow-table{min-width:850px}
+.workflow-table td,.workflow-table th{white-space:nowrap}
+.workflow-status{display:inline-flex;padding:4px 8px;border-radius:99px;font-size:9px;font-weight:800;background:#eaf7f2;color:#16836a}
+.workflow-status.pending{background:#fff4e2;color:#a36a16}
+.workflow-image-preview{display:flex;align-items:center;gap:10px;margin-top:8px;font-size:10px;color:var(--muted)}
+.workflow-image-preview img{width:96px;height:72px;object-fit:cover;border:1px solid var(--line);border-radius:8px}
+.workflow-image-preview button{padding:5px 8px;font-size:10px}
+
+.workflow-progress{height:7px;background:#edf0f6;border-radius:99px;overflow:hidden;min-width:65px}
+.workflow-progress i{display:block;height:100%;background:linear-gradient(90deg,#7b70e7,#39bda5);border-radius:99px}
+@media(max-width:900px){.workflow-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.workflow-form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.workflow-form-grid{grid-template-columns:1fr}.workflow-grid{grid-template-columns:1fr 1fr}}
+
+
+.access-gate{position:fixed;inset:0;z-index:9999;background:linear-gradient(135deg,#17172f,#37306f 65%,#6655d9);display:grid;place-items:center;padding:20px}.access-card{width:min(440px,100%);background:#fff;border-radius:22px;padding:28px;box-shadow:0 24px 80px #0d0b2b66}.access-brand{display:flex;align-items:center;gap:12px;margin-bottom:22px}.access-mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,#c7b6ff,#7759d9);display:grid;place-items:center;font-weight:900;color:#251d48}.access-card h1{font-size:22px;margin:0 0 6px;letter-spacing:-.04em}.access-card p{color:#7b819b;font-size:12px;line-height:1.6;margin:0 0 20px}.access-card label{display:block;font-size:11px;font-weight:750;color:#555a75;margin:13px 0 6px}.access-card select{width:100%}.access-card .access-note{font-size:10px;color:#8b90a5;background:#f5f6fb;border-radius:10px;padding:10px;margin-top:15px}.access-actions{display:flex;gap:9px;margin-top:18px}.access-actions button{flex:1}.access-hidden{display:none!important}.access-pill{font-size:10px;font-weight:800;border-radius:20px;padding:7px 10px;background:#efecff;color:#5a48ad}.logout-btn{background:#fff!important;color:#625b7d!important;border:1px solid var(--line)!important}
+@media(max-width:800px){.access-card{padding:22px}}
+
+</style>
+</head>
+<body>
+<div class="access-gate" id="accessGate">
+ <div class="access-card">
+  <div class="access-brand"><div class="access-mark">RI</div><div><div style="font-weight:850;font-size:14px">Retention Intelligence</div><div style="font-size:9px;color:#9295aa;letter-spacing:.15em">ACCESS PORTAL · PROTOTYPE</div></div></div>
+  <h1>Welcome back</h1><p>Select a demo access profile to preview the Leader and Sales experiences.</p>
+  <label for="accessRole">Access type</label><select id="accessRole"><option value="leader">Leader Access · Supervisor</option><option value="sales">Sales Access · Individual</option></select>
+  <div id="accessOwnerWrap" class="access-hidden"><label for="accessOwner">Sales account</label><select id="accessOwner"><option value="">Select sales owner</option></select></div>
+  <div id="salesLoginFields" class="access-hidden"><label for="salesUsername">Username</label><input id="salesUsername" autocomplete="username" placeholder="Enter your username" style="width:100%"><label for="salesPassword">Password</label><input id="salesPassword" type="password" autocomplete="current-password" placeholder="Enter your password" style="width:100%"></div>
+  <div class="access-note">Local prototype: sales credentials are verified in this browser only. This is not production authentication; shared access across devices requires a secure server and database.</div>
+  <div class="access-actions"><button type="button" id="accessContinue">Enter Dashboard</button></div>
+ </div>
+</div>
+<div class="app" id="dashboardApp">
+<aside class="sidebar">
+ <div class="brand"><div class="brandmark">R</div><div><div class="brandname">Retention Intelligence</div><div class="brandtag">Performance workspace</div></div></div>
+ <div><div class="navlabel">WORKSPACE</div><nav class="nav" id="mainNav">
+  <button class="active" data-page="command"><span class="ico">✦</span>Command Center</button>
+  <button data-page="overview"><span class="ico">◈</span>Executive Overview</button>
+  <button data-page="sales"><span class="ico">▥</span>Sales Performance</button>
+  <button data-page="trends"><span class="ico">⌁</span>Performance Trends</button>
+  <button data-page="customers"><span class="ico">♙</span>Customer Directory</button>
+  <button data-page="proof"><span class="ico">✓</span>Proof Exceptions</button>
+  <button data-page="accounts"><span class="ico">♙</span>Account Management</button>
+ </nav></div>
+ <div><div class="navlabel">DATA MANAGEMENT</div><nav class="nav">
+  <button data-page="upload"><span class="ico">⇧</span>Upload Center</button>
+ </nav></div>
+ <div class="sidebottom"><strong>Current workspace</strong><span id="sidebarPeriod">October 2026 · Sample report</span><br>Files are processed in your browser. No shared team database is connected yet.</div>
+</aside>
+
+<main class="main">
+<header class="topbar">
+ <div><div class="kicker">CUSTOMER RETENTION / ANALYTICS</div><div class="title" id="pageTitle">Supervisor Command Center</div><div class="subtitle" id="pageSubtitle">Team health, sales ranking, opportunity gaps and commission outlook.</div></div>
+ <div class="topright"><span class="access-pill" id="accessPill">LEADER ACCESS</span><button type="button" class="logout-btn" id="accessLogout">Switch Access</button>
+  <div class="datepill"><span class="live-dot"></span><span id="headerPeriod">OCT 2026 · AS OF 25 OCT</span></div>
+  <label class="datepill" title="Editable reference exchange rate">USD / IDR <input id="fxRate" type="number" min="1" step="1" value="16600" style="width:88px;padding:5px 7px;border:1px solid var(--line);border-radius:7px;font-weight:750"></label>
+  <button class="secondary" onclick="navigate('upload')">＋ Upload report</button>
+ </div>
+</header>
+
+
+<section class="page active" id="page-command">
+ <div class="command-hero">
+  <div><div class="kicker" style="color:#d9d6ff;margin-bottom:8px">RETENTION INTELLIGENCE / COMMAND CENTER</div><h2>Know the team. Spot the gap. Take action.</h2><p>A supervisor's live workspace for customer coverage, activation performance, opportunity gaps and commission outlook. Select a sales owner or review the entire department.</p></div>
+  <div class="command-hero-meta"><span>LATEST REPORT SNAPSHOT</span><strong id="commandPeriod">October 2026</strong><span id="commandAsOf">AS OF 25 OCT 2026</span></div>
+ </div>
+ <div class="command-toolbar">
+  <label>PERFORMANCE SCOPE<select id="commandSalesFilter"><option value="all">All Sales Owners</option></select></label>
+  <div class="target-controls">
+   <label>CONTACT RATE TARGET (%)<input id="targetContactRate" type="number" min="0" max="100" step="0.5" value="15"></label>
+   <label>ACTIVE RATE TARGET (%)<input id="targetActiveRate" type="number" min="0" max="100" step="0.1" value="1"></label>
+   <button class="secondary" id="saveTargetsBtn" type="button">Save targets</button>
+  </div>
+  <div class="target-caption">Targets are editable management benchmarks, not industry standards. Saved in this browser.</div>
+ </div>
+ <div class="kpis" id="commandKpis"></div>
+ <div class="command-grid">
+  <div class="command-panel">
+   <div class="panelhead"><div><div class="paneltitle">Sales performance ranking</div><div class="panelsub">Balanced score from contact rate, active rate and contacted-to-active conversion.</div></div><span class="tag green">TEAM SCORECARD</span></div>
+   <div class="tablewrap" id="commandRanking"></div>
+   <div class="command-footnote">Performance score weights: Contact Rate 40%, Active Rate 40%, Contacted-to-Active Conversion 20%. Each component is measured against its target or team average and capped at 100. Use the score as a coaching guide, not as a standalone employment decision.</div>
+  </div>
+  <div class="command-panel">
+   <div class="panelhead"><div><div class="paneltitle">Supervisor action queue</div><div class="panelsub">Priorities generated from the selected report snapshot.</div></div><span class="tag amber">ACTION POINTS</span></div>
+   <div class="signal-list" id="commandActions"></div>
+  </div>
+ </div>
+ <div class="command-grid">
+  <div class="command-panel">
+   <div class="panelhead"><div><div class="paneltitle">Contact coverage vs. activation</div><div class="panelsub">Quick view of the selected team or sales owner.</div></div></div>
+   <div id="commandCoverage"></div>
+  </div>
+  <div class="command-panel">
+   <div class="panelhead"><div><div class="paneltitle">Commission outlook</div><div class="panelsub">Current uploaded snapshot only; not a forecast of unearned rewards.</div></div><span class="tag">USD / IDR</span></div>
+   <div id="commandCommission"></div>
+  </div>
+ </div>
+</section>
+
+<section class="page" id="page-overview">
+ <div class="hero"><div><h2>Customer retention, made measurable.</h2><p>Track each sales owner, monitor post-contact activation and understand the bonus opportunity.<br>System labels are translated from the original Mandarin report.</p></div><div class="hero-right"><div class="bigdate" id="heroDate">25 October 2026</div><div class="caption">LATEST SYSTEM SNAPSHOT</div></div></div>
+ <div class="kpis" id="overviewKpis"></div>
+ <div class="grid2">
+  <div class="panel"><div class="panelhead"><div><div class="paneltitle">Active customers by sales</div><div class="panelsub">Customers with both deposit and trading activity</div></div><span class="tag">BY SALES</span></div><div id="salesBars" class="barlist"></div></div>
+  <div class="panel"><div class="panelhead"><div><div class="paneltitle">Customer movement mix</div><div class="panelsub">Before-contact and after-contact status categories</div></div><span class="tag blue">8 CATEGORIES</span></div><div id="statusBars" class="barlist"></div><div class="legend"><span><i style="background:#a89be9"></i>Before Contact</span><span><i style="background:#38b69a"></i>After Contact</span></div></div>
+ </div>
+ <div class="panel"><div class="panelhead"><div><div class="paneltitle">Sales performance snapshot</div><div class="panelsub">Click a sales owner to open their performance breakdown</div></div><span class="tag green">CLICK TO DRILL DOWN</span></div><div class="tablewrap" id="overviewSalesTable"></div></div>
+ <div class="footer">Important: “Before Contact” and “After Contact” describe when activity occurred relative to the contact time. The same customer may appear in more than one lifecycle category, so category counts are not mutually exclusive.</div>
+</section>
+
+<section class="page" id="page-sales">
+ <div class="pagehead"><div><h2 id="salesPageHeading">Sales Performance</h2><p id="salesPageSubheading">Review each sales owner's active customers, status movement and commission in one place.</p></div>
+  <div class="filters" style="margin:0;align-items:center"><label class="small" for="salesStatusSelect">Sales view</label><select id="salesStatusSelect" style="min-width:170px"><option value="all">All Sales Owners</option></select></div>
+ </div>
+ <div class="workflow-switch" id="salesSubnav"><button type="button" class="active" data-sales-tab="performance">Performance</button><button type="button" data-sales-tab="workflow">Weekly Workflow</button></div>
+ <div id="salesPerformanceTab">
+ <div class="note"><strong>Initial operating targets:</strong> Contact Rate ≥ 15% (20% stretch); Active Rate ≥ 1% (1.5% stretch). Contact Rate = Contacted ÷ Assigned. Active Rate = Active Customers (Deposit + Trading) ÷ Assigned. Contact-to-Active Conversion = Contacted Active ÷ Contacted. These are proposed internal targets based on the October baseline and the previously stated 1% probation threshold, not universal industry benchmarks.</div>
+ <div class="kpis" id="salesKpis"></div>
+ <div class="panel" style="margin-bottom:14px">
+  <div class="panelhead"><div><div class="paneltitle">Contacted vs. Uncontacted Deposit & Trading</div><div class="panelsub">Compare successful post-contact activations with customers who deposited and traded without being contacted.</div></div><span class="tag">OPPORTUNITY GAP</span></div>
+  <div id="contactComparison"></div>
+ </div>
+ <div class="panel" style="margin-bottom:14px">
+  <div class="panelhead"><div><div class="paneltitle">Performance evaluation & action points</div><div class="panelsub">Automatic coaching notes based on Contact Rate, Active Rate and conversion.</div></div><span class="tag amber">MANAGEMENT REVIEW</span></div>
+  <div class="eval-grid" id="salesEvaluations"></div>
+ </div>
+ <div class="panel">
+  <div class="panelhead"><div><div class="paneltitle">Status breakdown</div><div class="panelsub">The sales filter above applies to every section on this page.</div></div></div>
+  <div class="grid2" style="margin-bottom:0">
+   <div><div class="paneltitle" style="font-size:11px;margin:4px 0 12px">Before Contact</div><div id="salesBeforeBars" class="barlist"></div></div>
+   <div><div class="paneltitle" style="font-size:11px;margin:4px 0 12px">After Contact</div><div id="salesAfterBars" class="barlist"></div></div>
+  </div>
+  <div class="tablewrap" id="salesStatusTable" style="margin-top:15px"></div>
+ </div>
+ <div class="panel" style="margin-top:14px"><div class="panelhead"><div><div class="paneltitle">Commission by sales owner</div><div class="panelsub">USD and IDR are displayed side by side using the editable exchange rate above.</div></div><span class="tag green">CLICK ROW FOR DETAIL</span></div><div class="tablewrap" id="salesDetailTable"></div></div>
+ </div>
+ <div id="salesWorkflowTab" class="hidden">
+  <div class="note"><strong>Weekly sales submission:</strong> Sales owners update their own progress once per week. Values are saved as monthly snapshots in this browser. Sales Access is restricted to the signed-in owner. Cumulative fields should show the total achieved up to that week; weekly additions should show only new additions during that week.</div>
+  <div class="filters" style="align-items:end">
+   <label>Reporting month<input type="month" id="wfMonth" value="2026-11"></label>
+   <label>Sales owner<select id="wfSales"><option value="">Select sales owner</option></select></label>
+   <label>Week<select id="wfWeek"><option value="1">Week 1</option><option value="2">Week 2</option><option value="3">Week 3</option><option value="4">Week 4</option><option value="5">Week 5</option></select></label>
+   <button type="button" class="secondary" id="wfLoadBtn">Load saved entry</button>
+  </div>
+  <div class="workflow-grid" id="wfSummary"></div>
+  <div class="panel" id="wfSubmissionPanel" style="margin-bottom:14px">
+   <div class="panelhead"><div><div class="paneltitle">Weekly workflow submission</div><div class="panelsub">Enter the selected sales owner's progress for the selected week.</div></div><span class="tag blue">SALES INPUT</span></div>
+   <div class="workflow-form-grid">
+    <label>Not Confirmed · Remaining<input type="number" min="0" id="wfNotConfirmed" placeholder="e.g. 500"></label>
+    <label>New Referral · Added this week<input type="number" min="0" id="wfNewReferral" placeholder="e.g. 20"></label>
+    <label>Referral Existing · Cumulative total<input type="number" min="0" id="wfReferralExisting" placeholder="e.g. 120"></label>
+    <label>Referral Contacted · Cumulative total<input type="number" min="0" id="wfReferralContacted" placeholder="e.g. 70"></label>
+    <label>New Assignment · Monthly quota<input type="number" min="0" id="wfAssignmentTotal" placeholder="e.g. 2000"></label>
+    <label>New Assignment · Called so far (cumulative)<input type="number" min="0" id="wfCalled" placeholder="e.g. 500"></label>
+    <label>EDM status<select id="wfEdm"><option value="pending">Not yet done</option><option value="done">Done</option><option value="not-applicable">Not applicable</option></select></label>
+    <label>EDM completion date<input type="date" id="wfEdmDate"></label>
+    <label>Submitted by<input type="text" id="wfSubmittedBy" placeholder="Sales owner / name"></label>
+    <label style="grid-column:1/-1">Weekly update / blockers<textarea id="wfNotes" placeholder="What was completed, what is pending, and what support is needed?"></textarea></label>
+   </div>
+   <fieldset class="workflow-fieldset"><legend>Problem this week?</legend>
+    <div class="workflow-form-grid">
+     <label style="grid-column:1/-1">Explain the problem<textarea id="wfProblem" placeholder="Describe the issue, its impact, and what has been tried so far."></textarea></label>
+     <label style="grid-column:1/-1">Attach supporting image<input type="file" id="wfProblemImage" accept="image/*"><span class="small">Image evidence, screenshot, or relevant document photo.</span><div id="wfProblemPreview"></div></label>
+    </div>
+   </fieldset>
+   <fieldset class="workflow-fieldset"><legend>Suggestion this week?</legend>
+    <div class="workflow-form-grid">
+     <label style="grid-column:1/-1">Explain your suggestion<textarea id="wfSuggestion" placeholder="What should be improved or changed? Explain your recommendation."></textarea></label>
+     <label style="grid-column:1/-1">Attach supporting image<input type="file" id="wfSuggestionImage" accept="image/*"><span class="small">Optional reference image or screenshot.</span><div id="wfSuggestionPreview"></div></label>
+    </div>
+   </fieldset>
+   <div class="workflow-actions"><button type="button" id="wfSaveBtn">Save weekly submission</button><button type="button" class="secondary" id="wfClearBtn">Clear form</button><span class="small" id="wfSaveStatus">Select a sales owner and week to begin.</span></div>
+  </div>
+  <div class="panel" style="margin-bottom:14px">
+   <div class="panelhead"><div><div class="paneltitle">Monthly workflow progress</div><div class="panelsub">Compare weekly snapshots. Remaining counts should go down; cumulative completed counts should go up.</div></div><span class="tag green">WEEKLY MEETING VIEW</span></div>
+   <div class="tablewrap" id="wfProgressTable"><div class="empty">Select a sales owner to view weekly progress.</div></div>
+  </div>
+  <div class="panel" id="wfTeamPanel">
+   <div class="panelhead"><div><div class="paneltitle">Team submission overview</div><div class="panelsub">Supervisor view of weekly submissions for the selected month.</div></div><span class="tag">SUPERVISOR REVIEW</span></div>
+   <div class="tablewrap" id="wfTeamTable"></div>
+  </div>
+  <div class="note" style="margin-top:14px">Workflow entries are stored locally in this browser (same device and browser profile). In this version, sales can enter their updates in the same dashboard, but entries are not yet shared live across different computers. For a real team workflow with individual logins and central supervisor access, the next step is connecting a shared database and user permissions.</div>
+ </div>
+</section>
+
+
+
+
+
+
+
+<section class="page" id="page-accounts">
+ <div class="pagehead"><div><h2>Account Management</h2><p>Create sales accounts and set or reset their passwords.</p></div><span class="tag">LEADER ONLY</span></div>
+ <div class="note warning"><strong>Prototype limitation:</strong> Credentials are stored as salted password hashes in this browser only. This does not yet create secure accounts that work across devices. Production login requires server-side authentication and authorization.</div>
+ <div class="grid2">
+  <div class="panel"><div class="panelhead"><div><div class="paneltitle">Create / Update Sales Account</div><div class="panelsub">Set the username and initial password for a sales owner.</div></div></div>
+   <div class="workflow-form-grid" style="grid-template-columns:1fr">
+    <label>Sales owner<select id="accountOwner"><option value="">Select sales owner</option></select></label>
+    <label>Username<input id="accountUsername" autocomplete="off" placeholder="e.g. dani"></label>
+    <label>Set / reset password<input id="accountPassword" type="password" autocomplete="new-password" placeholder="At least 8 characters"></label>
+   </div>
+   <div class="workflow-actions"><button type="button" id="saveAccountBtn">Save Account</button><span class="small" id="accountSaveStatus">Choose a sales owner to begin.</span></div>
+  </div>
+  <div class="panel"><div class="panelhead"><div><div class="paneltitle">Account rules</div><div class="panelsub">Access is assigned individually to each sales owner.</div></div></div>
+   <ul style="font-size:11px;line-height:1.9;color:var(--muted);padding-left:18px;margin:0"><li>Leader can create accounts and reset passwords.</li><li>Each username is linked to one sales owner.</li><li>Sales login is limited to its own dashboard and workflow.</li><li>Password is never displayed after saving; reset it to issue a new one.</li></ul>
+  </div>
+ </div>
+ <div class="panel"><div class="panelhead"><div><div class="paneltitle">Sales Accounts</div><div class="panelsub">Account status and username overview. Passwords are not readable after saving.</div></div></div><div class="tablewrap" id="accountsTable"></div></div>
+</section>
+
+<section class="page" id="page-trends">
+ <div class="pagehead"><div><h2>Performance Trends</h2><p>Daily, monthly and annual results are grouped into one workspace.</p></div><span class="tag">TIME-BASED ANALYSIS</span></div>
+ <div class="filters" id="trendTabs">
+  <button class="secondary" data-trend="daily">Daily</button><button class="soft" data-trend="monthly">Monthly</button><button class="soft" data-trend="quarterly">Quarterly</button><button class="soft" data-trend="annual">Annual</button>
+ </div>
+ <div id="trend-daily">
+  <div class="kpis" id="dailyKpis"></div>
+  <div class="panel"><div class="panelhead"><div><div class="paneltitle">Daily bonus-eligible activations</div><div class="panelsub">Unique customer awards by reward date; trading lots are not presented as daily movement.</div></div><span class="tag">UNIQUE CUSTOMERS</span></div><div id="dailyActivationChart"></div></div>
+  <div class="note">Trading-lot volume and its commission are shown per uploaded report snapshot, not as a daily trend. No daily lot progression is inferred.</div>
+ </div>
+ <div id="trend-monthly" class="hidden"><div class="note">Each month uses the latest uploaded snapshot for that month to prevent duplicate counting.</div><div class="kpis" id="monthlyKpis"></div><div class="panel"><div class="panelhead"><div class="paneltitle">Monthly performance history</div></div><div class="tablewrap" id="monthlyTable"></div></div></div>
+ <div id="trend-quarterly" class="hidden"><div class="note">Quarterly performance uses the latest available response-time snapshot in each quarter. Snapshot values are not added together.</div><div class="kpis" id="quarterlyKpis"></div><div class="panel"><div class="panelhead"><div class="paneltitle">Quarterly performance history</div></div><div class="tablewrap" id="quarterlyTable"></div></div></div>
+ <div id="trend-annual" class="hidden"><div class="note warning">Annual view uses the latest available snapshot in each year. Historical snapshots remain available below.</div><div class="kpis" id="annualKpis"></div><div class="panel"><div class="panelhead"><div class="paneltitle">Annual performance by year</div></div><div class="tablewrap" id="annualTable"></div></div></div>
+ <div class="panel" style="margin-top:14px"><div class="panelhead"><div><div class="paneltitle">Response Time Performance</div><div class="panelsub">Average response time and replied-message volume by sales owner.</div></div><span class="tag blue" id="responseLatestTag">No response data yet</span></div><div class="kpis" id="responseKpis"></div><div class="tablewrap" id="responseLatestTable"><div class="empty">Paste response-time data in Upload Center to begin.</div></div><div class="small" id="responseUpdatedAt" style="margin-top:8px"></div><div class="filters" id="responseTrendTabs" style="margin-top:14px"><button class="secondary" data-response-period="daily">Daily</button><button class="soft" data-response-period="monthly">Monthly</button><button class="soft" data-response-period="quarterly">Quarterly</button><button class="soft" data-response-period="annual">Annual</button></div><div class="tablewrap" id="responsePeriodHistory"><div class="empty">No response-time snapshots saved.</div></div></div>
+ <div class="panel" style="margin-top:14px"><div class="panelhead"><div><div class="paneltitle">Response Time Update History</div><div class="panelsub">Each paste is saved as a dated snapshot; earlier updates are retained.</div></div></div><div class="tablewrap" id="responseHistoryTable"><div class="empty">No response-time snapshots saved.</div></div></div>
+</section>
+<section class="page" id="page-customers">
+ <div class="pagehead"><div><h2>Customer Directory</h2><p>Individual activity records from the “导出” worksheet. SID is masked in the list.</p></div><span class="tag" id="customerCount">Sample summary only</span></div>
+ <div class="note">For privacy, the customer ID is masked in the table. Open a record to see full details. The current demonstration shows summary-level data; upload the system workbook to populate individual customer records.</div>
+ <div class="filters"><input id="customerSearch" placeholder="Search SID or sales owner"><select id="customerSales"><option value="all">All sales owners</option></select><select id="customerStage"><option value="all">All contact stages</option><option value="contacted">Contacted</option><option value="notcontacted">Not contacted</option></select></div>
+ <div class="tablewrap" id="customerTable"><div class="empty">Upload the system report to populate the customer directory.</div></div>
+</section>
+
+
+
+<section class="page" id="page-proof">
+ <div class="pagehead"><div><h2>Proof Exceptions</h2><p>Only records with an actual missing field, missing proof or confirmed mismatch appear in the correction list.</p></div>
+  <div class="filters" style="margin:0;align-items:center;flex-wrap:wrap"><label class="small" for="proofSalesFilter">Sales owner</label><select id="proofSalesFilter" style="min-width:160px"><option value="all">All Sales Owners</option></select><span id="proofStatusFilterWrap" style="display:none"><label class="small" for="proofStatusFilter">Check status</label><select id="proofStatusFilter" style="min-width:210px"></select></span><button class="secondary" id="scanProofBtn">Scan Proof Images</button></div>
+ </div>
+ <div class="note warning"><strong>Audit policy:</strong> Contacted = 1 when ANY ONE of Call Data, Chatroom Data, or WhatsApp Data is 1. The Contacted record must also have Contacted Time and a proof photo on the same customer row. A 0 in one channel is not a conflict when another channel is 1. A placeholder name such as “--” is not treated as proof mismatch. OCR suggestions are advisory only; unreadable OCR does not create a correction item. Only structural issues or a supervisor-confirmed mismatch are included in the copy summary.</div>
+ <div class="kpis" id="proofKpis"></div>
+ <div id="proofAuditProgress" class="audit-progress"></div>
+ <div class="panel" style="margin-bottom:14px">
+  <div class="panelhead"><div><div class="paneltitle">Sales correction message</div><div class="panelsub">Ready-to-send SID list grouped by sales owner. Only confirmed corrections are included.</div></div><button id="copyProofSummaryBtn">Copy message</button></div>
+  <textarea id="proofSummaryText" rows="7" readonly style="width:100%;resize:vertical;border:1px solid var(--line);border-radius:11px;padding:12px;background:#faf9fd;color:var(--ink);font:11px/1.6 inherit"></textarea>
+  <div id="proofSummaryStatus" class="small" style="margin-top:7px"></div>
+ </div>
+ <div class="panel"><div class="panelhead"><div><div class="paneltitle">Proof review queue</div><div class="panelsub">Filter by issue type. Open a row to inspect the original photo and customer details.</div></div><span class="tag amber">REVIEW QUEUE</span></div>
+  <div class="tablewrap" id="proofTable"><div class="empty">Upload the personal contact file from Upload Center.</div></div>
+ </div>
+</section>
+
+<section class="page" id="page-upload">
+ <div class="pagehead"><div><h2>Upload Center</h2><p>Two separate upload channels for the system report and private contact-proof file.</p></div><span class="tag blue">LOCAL PROCESSING</span></div>
+ <div class="uploadgrid">
+  <div class="uploadcard"><div class="uploadicon">▤</div><h3>1. System Performance Report</h3><p>Upload the recurring Mandarin workbook like <b>销售绩效.xlsx</b>. The dashboard reads Sales Summary, Reward Details and the Export worksheet automatically.</p><div class="dropzone"><input type="file" id="systemFile" accept=".xlsx,.xls"></div><div class="uploadstatus" id="systemUploadStatus">No new file uploaded. The October sample summary is currently displayed.</div><div style="margin-top:10px"><button id="systemUploadBtn">Import System Report</button></div></div>
+  <div class="uploadcard"><div class="uploadicon">▣</div><h3>2. Personal Contact & Proof File</h3><p>Upload the private individual workbook (for example, Dipa.xlsx). The dashboard reads SID, name, phone, contact flag, contact time, manual deposit date, trading date and photos embedded in the Contacted Proof column. Photos are matched by worksheet row and proof column.</p><div class="dropzone"><input type="file" id="personalFile" accept=".xlsx,.xls"></div><div class="uploadstatus" id="personalUploadStatus">No personal file uploaded.</div><div style="margin-top:10px"><button class="secondary" id="personalUploadBtn">Import Personal File</button></div></div>
+ </div>
+ <div class="panel" style="margin-top:14px"><div class="panelhead"><div><div class="paneltitle">3. Response Time Data · Paste Input</div><div class="panelsub">Copy rows from your source spreadsheet and paste them here. Leader only.</div></div><span class="tag blue">TWICE-WEEKLY SNAPSHOT</span></div>
+  <div class="filters"><label class="small" for="responseAsOf">Data date</label><input type="date" id="responseAsOf"><label class="small" for="responsePeriod">Reporting period</label><select id="responsePeriod"><option value="daily">Daily</option><option value="weekly" selected>Weekly snapshot</option><option value="monthly">Monthly</option></select><label class="small" for="responseCategory">Data category</label><select id="responseCategory"><option value="outside">Outside Working Hours · 非工作时间</option><option value="inside">Inside Working Hours · 工作时间</option></select></div>
+  <p class="small" style="margin:8px 0">Select the category above, then paste its rows from the original 7-column report: <b>NO</b> (ignored) · <b>SALES</b> · <b>SID</b> · <b>PERIOD</b> · <b>WORKING-HOUR CATEGORY</b> · <b>NUMBER OF REPLIED MESSAGE</b> · <b>RESPONSE TIME / M</b>. Only rows matching the selected category will be imported. Upload the other category separately using the same data date; it will be merged, not replace the first category. Multiple SID rows are combined by sales using replied-message-weighted averages.</p>
+  <textarea id="responsePaste" rows="7" placeholder="NO&#9;SALES&#9;SID&#9;PERIOD&#9;工作时间 / 非工作时间&#9;NUMBER OF REPLIED MESSAGE&#9;RESPONSE TIME / M&#10;1&#9;Dani&#9;SID001&#9;Oct-26&#9;工作时间&#9;1280&#9;4.5&#10;2&#9;Dani&#9;SID001&#9;Oct-26&#9;非工作时间&#9;320&#9;18.2" style="width:100%;resize:vertical;border:1px solid var(--line);border-radius:11px;padding:12px;background:#faf9fd;color:var(--ink);font:12px/1.6 inherit"></textarea>
+  <div class="workflow-actions" style="margin-top:10px"><button id="saveResponseDataBtn">Validate & Save Snapshot</button><span class="small" id="responsePasteStatus">No new response-time data pasted.</span></div>
+  <div class="note" style="margin-top:10px">Every saved paste records its data date and import timestamp. Re-pasting the same date asks for confirmation before replacing that date's snapshot. Older dates remain in history. This browser prototype stores snapshots locally; team-wide sync requires the backend/database.</div>
+ </div>
+ <div class="panel" style="margin-top:14px"><div class="panelhead"><div class="paneltitle">Latest import activity</div></div><div id="importLog" class="small">The October sample workbook is preloaded as a reference dashboard. Upload another workbook to replace the current system snapshot.</div></div>
+ <div class="panel" style="margin-top:14px">
+  <div class="panelhead"><div><div class="paneltitle">Upload history</div><div class="panelsub">Previously imported files, timestamps and duplicate-file protection.</div></div><span class="tag blue" id="historyCount">0 imports</span></div>
+  <div class="tablewrap" id="uploadHistoryTable"><div class="empty">No upload history yet. Successfully imported files will appear here.</div></div>
+ </div>
+ <div class="note" style="margin-top:14px">Excel and embedded proof images are read in your browser. The OCR helper is loaded only when you click Scan Proof Images; image contents remain in the browser and are not uploaded to the script CDN. Internet access is required for the first Excel import. Upload history, duplicate-file checks, and the latest personal workbook per sales owner are saved locally in this browser only (same browser/profile and device). Saved personal workbooks reload into the Proof Direction sales filter after refresh. They are not shared across teammates or devices. Clearing browser site data may erase local files. The current dashboard does not yet have cloud storage or team logins.</div>
+</section>
+<div class="footer">Retention Intelligence v3.9 · UI language: English · Source workbook language: Mandarin · Demo summary from the uploaded October 2026 report. Customer-level identifiers are not embedded in this HTML sample.</div>
+</main></div>
+
+<div class="drawerback" id="drawerBack"><div class="drawer">
+ <div class="drawerhead"><div><div class="kicker">DETAIL PANEL</div><h3 id="drawerTitle">Details</h3></div><span class="small">Click outside or press Esc to close</span></div><div id="drawerBody"></div>
+</div></div>
+
+<script>
+const SAMPLE={"reportMonth":"2026-10","reportDate":"2026-10-25","totals":{"assigned":12024,"contacted":1414,"depositPersons":474,"netDeposit":15091.44,"tradingPersons":480,"lots":268.051,"eligible":161,"eligibleLots":161.0337,"activationBonus":161,"lotBonus":48.31011,"contactedDepTrade":161,"uncontactedDepTrade":255,"rewardInBeforeTag":26,"rewardMissingExport":11,"exportAfterTag":124,"active":416,"contactedActive":161,"uncontactedActive":255,"activeRate":0.034597471723220224},"sales":[{"sales":"Dani","app":"Dana","assigned":3010,"contacted":249,"depositPersons":110,"netDeposit":3835.88,"tradingPersons":109,"lots":63.6,"eligible":42,"eligibleLots":36.74,"activationBonus":42,"lotBonus":11.022,"categories":{"联系前_有充值、有交易":64,"联系前_有充值、无交易":2,"联系前_无充值、有交易":14,"联系前_无充值、无交易":2896,"联系后_有充值、有交易":42,"联系后_有充值、无交易":2,"联系后_无充值、有交易":3,"联系后_无充值、无交易":1},"contactedDepTrade":41,"uncontactedDepTrade":52,"contactShare":0.44680851063829785,"rewardInBeforeTag":11,"rewardMissingExport":2,"exportAfterTag":29,"active":93,"contactedActive":41,"uncontactedActive":52},{"sales":"Julius","app":"Dana","assigned":3003,"contacted":400,"depositPersons":99,"netDeposit":6051.73,"tradingPersons":92,"lots":92.92,"eligible":49,"eligibleLots":81.88,"activationBonus":49,"lotBonus":24.564,"categories":{"联系前_有充值、有交易":43,"联系前_有充值、无交易":2,"联系前_无充值、有交易":8,"联系前_无充值、无交易":2908,"联系后_有充值、有交易":49,"联系后_有充值、无交易":5,"联系后_无充值、有交易":1,"联系后_无充值、无交易":0},"contactedDepTrade":45,"uncontactedDepTrade":37,"contactShare":0.5697674418604651,"rewardInBeforeTag":5,"rewardMissingExport":5,"exportAfterTag":39,"active":82,"contactedActive":45,"uncontactedActive":37},{"sales":"Dipa","app":"TW","assigned":3011,"contacted":469,"depositPersons":167,"netDeposit":3840.79,"tradingPersons":167,"lots":89.9974,"eligible":52,"eligibleLots":35.7139,"activationBonus":52,"lotBonus":10.71417,"categories":{"联系前_有充值、有交易":107,"联系前_有充值、无交易":6,"联系前_无充值、有交易":11,"联系前_无充值、无交易":2837,"联系后_有充值、有交易":52,"联系后_有充值、无交易":2,"联系后_无充值、有交易":12,"联系后_无充值、无交易":1},"contactedDepTrade":55,"uncontactedDepTrade":95,"contactShare":0.35374149659863946,"rewardInBeforeTag":6,"rewardMissingExport":3,"exportAfterTag":43,"active":150,"contactedActive":55,"uncontactedActive":95},{"sales":"Ita","app":"TW","assigned":3000,"contacted":296,"depositPersons":98,"netDeposit":1363.04,"tradingPersons":112,"lots":21.5336,"eligible":18,"eligibleLots":6.6998,"activationBonus":18,"lotBonus":2.00994,"categories":{"联系前_有充值、有交易":78,"联系前_有充值、无交易":0,"联系前_无充值、有交易":19,"联系前_无充值、无交易":2886,"联系后_有充值、有交易":18,"联系后_有充值、无交易":2,"联系后_无充值、有交易":4,"联系后_无充值、无交易":0},"contactedDepTrade":20,"uncontactedDepTrade":71,"contactShare":0.20224719101123595,"rewardInBeforeTag":4,"rewardMissingExport":1,"exportAfterTag":13,"active":91,"contactedActive":20,"uncontactedActive":71}],"categories":[{"key":"联系前_有充值、有交易","label":"Before Contact · Deposit & Trading","stage":"before","count":292},{"key":"联系前_有充值、无交易","label":"Before Contact · Deposit · No Trading","stage":"before","count":10},{"key":"联系前_无充值、有交易","label":"Before Contact · No Deposit · Trading","stage":"before","count":52},{"key":"联系前_无充值、无交易","label":"Before Contact · No Deposit · No Trading","stage":"before","count":11527},{"key":"联系后_有充值、有交易","label":"After Contact · Deposit & Trading","stage":"after","count":161},{"key":"联系后_有充值、无交易","label":"After Contact · Deposit · No Trading","stage":"after","count":11},{"key":"联系后_无充值、有交易","label":"After Contact · No Deposit · Trading","stage":"after","count":20},{"key":"联系后_无充值、无交易","label":"After Contact · No Deposit · No Trading","stage":"after","count":2}],"daily":[{"date":"2026-10-01","newEligible":5,"lots":0.18,"lotBonus":0.054},{"date":"2026-10-02","newEligible":5,"lots":0.8,"lotBonus":0.24},{"date":"2026-10-03","newEligible":1,"lots":0.21,"lotBonus":0.063},{"date":"2026-10-04","newEligible":9,"lots":8.35,"lotBonus":2.505},{"date":"2026-10-05","newEligible":14,"lots":18.54,"lotBonus":5.562},{"date":"2026-10-06","newEligible":9,"lots":16.94,"lotBonus":5.082},{"date":"2026-10-07","newEligible":8,"lots":11.49,"lotBonus":3.447},{"date":"2026-10-08","newEligible":6,"lots":14.5,"lotBonus":4.35},{"date":"2026-10-09","newEligible":8,"lots":17.85,"lotBonus":5.355},{"date":"2026-10-10","newEligible":7,"lots":3.94,"lotBonus":1.182},{"date":"2026-10-11","newEligible":3,"lots":1.53,"lotBonus":0.459},{"date":"2026-10-12","newEligible":11,"lots":3.67,"lotBonus":1.101},{"date":"2026-10-13","newEligible":11,"lots":4.2914,"lotBonus":1.28742},{"date":"2026-10-14","newEligible":11,"lots":7.095,"lotBonus":2.1285},{"date":"2026-10-15","newEligible":12,"lots":10.8014,"lotBonus":3.24042},{"date":"2026-10-16","newEligible":4,"lots":6.2705,"lotBonus":1.88115},{"date":"2026-10-17","newEligible":3,"lots":0.9309,"lotBonus":0.27927},{"date":"2026-10-18","newEligible":2,"lots":1.17,"lotBonus":0.351},{"date":"2026-10-19","newEligible":6,"lots":6.7019,"lotBonus":2.01057},{"date":"2026-10-20","newEligible":6,"lots":5.8572,"lotBonus":1.75716},{"date":"2026-10-21","newEligible":5,"lots":6.1295,"lotBonus":1.83885},{"date":"2026-10-22","newEligible":9,"lots":7.2653,"lotBonus":2.17959},{"date":"2026-10-23","newEligible":3,"lots":5.6206,"lotBonus":1.68618},{"date":"2026-10-24","newEligible":3,"lots":0.9,"lotBonus":0.27}],"customers":[],"rewardDetails":[],"comparisonNote":"Uncontacted deposit & trading counts are taken from Export rows where 联系前_有充值、有交易 and 是否已联系上 = 未联系上. Contacted deposit & trading counts come from the Sales Summary after-contact category."};
+const STATUS=[
+ {key:"联系前_有充值、有交易",label:"Before Contact · Deposit & Trading",stage:"before",note:"Deposit and trading recorded before contact"},
+ {key:"联系前_有充值、无交易",label:"Before Contact · Deposit · No Trading",stage:"before"},
+ {key:"联系前_无充值、有交易",label:"Before Contact · No Deposit · Trading",stage:"before"},
+ {key:"联系前_无充值、无交易",label:"Before Contact · No Deposit · No Trading",stage:"before"},
+ {key:"联系后_有充值、有交易",label:"After Contact · Deposit & Trading",stage:"after",note:"Eligible activation"},
+ {key:"联系后_有充值、无交易",label:"After Contact · Deposit · No Trading",stage:"after",note:"Almost eligible"},
+ {key:"联系后_无充值、有交易",label:"After Contact · No Deposit · Trading",stage:"after"},
+ {key:"联系后_无充值、无交易",label:"After Contact · No Deposit · No Trading",stage:"after"}
+];
+const TITLES={
+ command:["Supervisor Command Center","Team health, sales ranking, opportunity gaps and commission outlook."],
+ overview:["Executive Overview","A clear view of customer movement, active customers and earned commission."],
+ sales:["Sales Performance","Review each sales owner's status breakdown and USD / IDR commission."],
+ trends:["Performance Trends","Daily, monthly and annual results in one place."],
+ customers:["Customer Directory","Explore customer activity records by SID and sales owner."],
+ proof:["Proof Exceptions","Only records with missing or inconsistent information appear here."],
+ upload:["Upload Center","Import the system performance report and private contact-proof workbook."],
+ accounts:["Account Management","Create sales accounts and set or reset passwords."]
+};
+let state={summary:structuredClone(SAMPLE),snapshots:[JSON.parse(JSON.stringify(SAMPLE))],customers:[],rewardDetails:[],personal:[],source:"October 2026 sample",imported:false};
+const $=id=>document.getElementById(id);
+function fmt(n,d=0){return Number(n||0).toLocaleString("en-US",{minimumFractionDigits:d,maximumFractionDigits:d})}
+function usd(n){return "$"+fmt(n,2)}
+function fxRate(){return Math.max(1,Number($("fxRate")?.value)||16600)}
+function idr(n){return "Rp "+Math.round(Number(n||0)*fxRate()).toLocaleString("id-ID")}
+function norm(s){return String(s??"").toLowerCase().replace(/[\s_\-()（）]/g,"").replace(/[^\p{L}\p{N}]/gu,"")}
+function num(v){if(typeof v==="number")return v;let s=String(v??"").trim().replace(/,/g,"");let n=Number(s);return Number.isFinite(n)?n:0}
+function dateText(v){if(v instanceof Date&&!isNaN(v))return v.toISOString().slice(0,10);if(typeof v==="number"&&v>20000&&v<90000){return new Date(Date.UTC(1899,11,30)+v*86400000).toISOString().slice(0,10)}let s=String(v??"").trim();if(!s)return "";let m=s.match(/(\d{4})[-/.年](\d{1,2})[-/.月](\d{1,2})/);if(m)return `${m[1]}-${m[2].padStart(2,"0")}-${m[3].padStart(2,"0")}`;let d=new Date(s);return !isNaN(d)?d.toISOString().slice(0,10):s}
+function dateTimeText(v){
+ if(v instanceof Date&&!isNaN(v)){let z=v.toISOString();return z.slice(0,10)+(z.slice(11,16)!=="00:00"? " "+z.slice(11,16):"")}
+ if(typeof v==="number"&&v>20000&&v<90000){let day=Math.floor(v),mins=Math.round((v-day)*1440),base=new Date(Date.UTC(1899,11,30)+day*86400000).toISOString().slice(0,10);return base+(mins?" "+String(Math.floor(mins/60)).padStart(2,"0")+":"+String(mins%60).padStart(2,"0"):"")}
+ let s=String(v??"").trim();if(!s)return "";let m=s.match(/(\d{4}[-/.年]\d{1,2}[-/.月]\d{1,2})(?:[ T](\d{1,2}:\d{2}(?::\d{2})?))?/);if(m){let d=dateText(m[1]);return d+(m[2]?" "+m[2].slice(0,5):"")}return dateText(s)
+}
+function moneyMetric(label,value,foot,icon,color){return `<div class="kpi" style="--accent:${color};--tint:${color}17"><div class="kpi-top"><span class="kpi-label">${label}</span><span class="kpi-icon">${icon}</span></div><div class="kpi-value">${value}</div><div class="kpi-foot">${foot}</div></div>`}
+function rowsTable(rows,headers,rowRenderer){if(!rows.length)return `<div class="empty">No records to display yet.</div>`;return `<table class="data-table"><thead><tr>${headers.map(h=>`<th>${h}</th>`).join("")}</tr></thead><tbody>${rows.map((r,i)=>`<tr data-index="${i}">${rowRenderer(r,i)}</tr>`).join("")}</tbody></table>`}
+function salesTable(rows){
+ return `<table class="sales-table"><thead><tr>
+ <th>Sales Owner</th><th>Assigned</th><th>Contacted</th><th>Contact Rate</th>
+ <th>Active Customers</th><th>Active Rate</th><th>Bonus Eligible</th><th>Contact → Active</th><th>Eligible Lots</th>
+ <th>Activation Commission (USD)</th><th>Trading Commission (USD)</th><th>Total Commission (USD)</th><th>Total Commission (IDR)</th>
+ </tr></thead><tbody>${rows.map(s=>{
+  let act=Number(s.activationBonus??s.eligible??0),lot=Number(s.lotBonus||0),total=act+lot;
+  let cr=s.assigned?s.contacted/s.assigned*100:0, ar=s.assigned?num(s.active)/s.assigned*100:0, conv=s.contacted?num(s.contactedActive)/s.contacted*100:0;
+  return `<tr data-sales="${encodeURIComponent(s.sales)}">
+   <td><div class="salesname"><span class="avatar">${s.sales.slice(0,1).toUpperCase()}</span>${s.sales}</div></td>
+   <td class="num">${fmt(s.assigned)}</td><td class="num">${fmt(s.contacted)}</td>
+   <td><span class="rate-badge ${contactClass(cr)}">${fmt(cr,2)}%</span></td>
+   <td class="num positive">${fmt(s.active)}</td>
+   <td><span class="rate-badge ${activeClass(ar)}">${fmt(ar,2)}%</span></td>
+   <td class="num">${fmt(s.eligible)}</td>
+   <td class="num">${fmt(conv,2)}%</td><td class="num">${fmt(s.eligibleLots,4)}</td>
+   <td class="num"><span class="currency-toggle" data-usd="${act}" data-mode="usd" title="Double-click to view IDR">${usd(act)}</span><span class="currency-hint">↔ dbl-click</span></td>
+   <td class="num"><span class="currency-toggle" data-usd="${lot}" data-mode="usd" title="Double-click to view IDR">${usd(lot)}</span><span class="currency-hint">↔ dbl-click</span></td>
+   <td class="num positive">${usd(total)}</td><td class="num positive">${idr(total)}</td>
+  </tr>`}).join("")}</tbody></table>`;
+}
+function contactClass(rate){return rate>=15?"rate-good":rate>=10?"rate-watch":"rate-low"}
+function activeClass(rate){return rate>=1.5?"rate-good":rate>=1?"rate-watch":"rate-low"}
+function attachCurrencyToggles(root){
+ (root||document).querySelectorAll(".currency-toggle").forEach(el=>{
+  el.addEventListener("click",e=>e.stopPropagation());
+  el.addEventListener("dblclick",e=>{
+   e.stopPropagation();
+   const mode=el.dataset.mode==="usd"?"idr":"usd";
+   el.dataset.mode=mode;
+   const usdVal=Number(el.dataset.usd||0);
+   el.textContent=mode==="usd"?usd(usdVal):idr(usdVal);
+   el.title=mode==="usd"?"Double-click to view IDR":"Double-click to view USD";
+  });
+ });
+}
+function statusData(){return state.summary.categories||[]}
+function totals(){return state.summary.totals||{}}
+function saleData(){return state.summary.sales||[]}
+
+const COMMAND_TARGET_KEY="retention_intelligence_management_targets_v1";
+function commandTargets(){
+ try{return {...{contact:15,active:1},...(JSON.parse(localStorage.getItem(COMMAND_TARGET_KEY)||"{}"))}}catch(e){return {contact:15,active:1}}
+}
+function saveCommandTargets(){
+ let contact=Math.min(100,Math.max(0,num($("targetContactRate").value)));
+ let active=Math.min(100,Math.max(0,num($("targetActiveRate").value)));
+ let t={contact,active};
+ try{localStorage.setItem(COMMAND_TARGET_KEY,JSON.stringify(t))}catch(e){}
+ $("targetContactRate").value=contact;$("targetActiveRate").value=active;
+ renderCommandCenter();
+ accessPopulateOwners();accessRoleUI();
+}
+function commandScore(s,teamConversion,targets){
+ let cr=s.assigned?num(s.contacted)/num(s.assigned)*100:0;
+ let ar=s.assigned?num(s.active)/num(s.assigned)*100:0;
+ let cv=s.contacted?num(s.contactedActive)/num(s.contacted)*100:0;
+ let cScore=targets.contact?Math.min(100,cr/targets.contact*100):(cr>0?100:0);
+ let aScore=targets.active?Math.min(100,ar/targets.active*100):(ar>0?100:0);
+ let vScore=teamConversion?Math.min(100,cv/teamConversion*100):(cv>0?100:0);
+ return {cr,ar,cv,score:Math.round(cScore*.4+aScore*.4+vScore*.2)};
+}
+function renderCommandCenter(){
+ let all=saleData(),select=$("commandSalesFilter"),previous=select.value||"all";
+ select.innerHTML='<option value="all">All Sales Owners</option>'+all.map(s=>`<option value="${encodeURIComponent(s.sales)}">${escHtml(s.sales)}</option>`).join("");
+ if([...select.options].some(o=>o.value===previous))select.value=previous;
+ if(activeAccess.role==="sales"){select.value=encodeURIComponent(activeAccess.sales);select.disabled=true;}
+ let chosen=select.value==="all"?all:all.filter(s=>encodeURIComponent(s.sales)===select.value);
+ let t=aggregateSales(chosen),targets=commandTargets();
+ $("targetContactRate").value=targets.contact;$("targetActiveRate").value=targets.active;
+ let cr=t.assigned?t.contacted/t.assigned*100:0,ar=t.assigned?t.active/t.assigned*100:0;
+ let bonus=chosen.reduce((a,s)=>a+num(s.activationBonus??s.eligible)+num(s.lotBonus),0);
+ let ca=chosen.reduce((a,s)=>a+num(s.contactedActive),0),ua=chosen.reduce((a,s)=>a+num(s.uncontactedActive),0);
+ let period=state.summary.reportMonth||"Latest report",date=state.summary.reportDate||"";
+ $("commandPeriod").textContent=period;$("commandAsOf").textContent=date?("AS OF "+date):"LATEST AVAILABLE SNAPSHOT";
+ $("commandKpis").innerHTML=[
+  moneyMetric("Assigned Customers",fmt(t.assigned),"Current assignment base","♙","#6655d9"),
+  moneyMetric("Contact Rate",fmt(cr,2)+"%",`${fmt(t.contacted)} contacted · target ${fmt(targets.contact,1)}%`,"↗","#35aa94"),
+  moneyMetric("Active Rate",fmt(ar,2)+"%",`${fmt(t.active)} deposit + trading · target ${fmt(targets.active,1)}%`,"✓","#168b72"),
+  moneyMetric("Current Commission",usd(bonus),`${idr(bonus)} estimated from uploaded rewards`,"$","#d49a37")
+ ].join("");
+ let teamConversion=t.contacted?t.contactedActive/t.contacted*100:0;
+ let ranked=chosen.map(s=>({...s,...commandScore(s,teamConversion,targets)})).sort((a,b)=>b.score-a.score);
+ $("commandRanking").innerHTML=ranked.length?`<table class="data-table command-rank-table"><thead><tr><th>Rank</th><th>Sales Owner</th><th>Score</th><th>Contact Rate</th><th>Active Rate</th><th>Contact → Active</th><th>Opportunity Gap</th><th>Signal</th></tr></thead><tbody>${ranked.map((s,i)=>{
+  let status=s.cr<targets.contact||s.ar<targets.active?"Needs focus":"On target";
+  let ringColor=s.score>=80?"#2eaa8c":s.score>=55?"#d49a37":"#d45c75";
+  return `<tr data-sales="${encodeURIComponent(s.sales)}"><td><b>#${i+1}</b></td><td><b>${escHtml(s.sales)}</b></td><td><div class="command-score"><div class="score-ring" style="--score-angle:${s.score*3.6}deg;background:conic-gradient(${ringColor} var(--score-angle),#edf0f7 0)"><b>${s.score}</b></div></div></td><td>${fmt(s.cr,1)}%</td><td>${fmt(s.ar,2)}%</td><td>${fmt(s.cv,1)}%</td><td>${fmt(s.uncontactedActive)}</td><td><span class="tag ${status==="On target"?"green":"amber"}">${status}</span></td></tr>`;
+ }).join("")}</tbody></table>`:'<div class="empty">No sales performance data is available in this snapshot.</div>';
+ $("commandRanking").querySelectorAll("tr[data-sales]").forEach(row=>row.addEventListener("click",()=>{navigate("sales");$("salesStatusSelect").value=row.dataset.sales;renderSales()}));
+ let actions=[];
+ let belowContact=ranked.filter(s=>s.cr<targets.contact);
+ let belowActive=ranked.filter(s=>s.ar<targets.active);
+ let gap=ranked.reduce((a,s)=>a+num(s.uncontactedActive),0);
+ if(belowContact.length)actions.push({type:"warning",title:`${belowContact.length} sales below contact target`,body:belowContact.map(s=>`${s.sales} (${fmt(s.cr,1)}%)`).join(" · ")+" — review reach-out coverage and follow-up cadence."});
+ if(belowActive.length)actions.push({type:"warning",title:`${belowActive.length} sales below active target`,body:belowActive.map(s=>`${s.sales} (${fmt(s.ar,2)}%)`).join(" · ")+" — review deposit-to-trading conversion and customer quality."});
+ if(gap)actions.push({type:"info",title:`${fmt(gap)} uncontacted active customers`,body:"These customers already have deposit + trading activity. Review attribution and contact opportunities."});
+ if(!actions.length)actions.push({type:"success",title:"No immediate performance alerts",body:"The selected sales scope meets the current contact and active rate targets."});
+ actions.push({type:"info",title:"Proof review remains separate",body:"Only review actual exceptions in Proof Exceptions. Not-contacted customers with no proof are not correction cases."});
+ $("commandActions").innerHTML=actions.map(a=>`<div class="signal-item ${a.type}"><i class="signal-dot"></i><div><strong>${escHtml(a.title)}</strong><span>${escHtml(a.body)}</span></div></div>`).join("");
+ let activeTotal=ca+ua,contactShare=activeTotal?ca/activeTotal*100:0,uncontactShare=activeTotal?ua/activeTotal*100:0;
+ $("commandCoverage").innerHTML=`<div class="summarycards"><div class="compare-metric"><div class="label">Contacted + Active</div><div class="big" style="color:var(--green)">${fmt(ca)}</div><div class="small">${fmt(contactShare,1)}% of active customers</div></div><div class="compare-metric"><div class="label">Uncontacted + Active</div><div class="big" style="color:var(--purple)">${fmt(ua)}</div><div class="small">${fmt(uncontactShare,1)}% · opportunity gap</div></div></div><div class="compare-bar"><div class="compare-contacted" style="width:${contactShare}%"></div><div class="compare-uncontacted" style="width:${uncontactShare}%"></div></div><div class="small" style="margin-top:10px">Active means Deposit + Trading. Contact status is determined by Call OR Chatroom OR WhatsApp.</div>`;
+ $("commandCommission").innerHTML=`<div class="summarycards"><div class="compare-metric"><div class="label">Activation Commission</div><div class="big">${usd(chosen.reduce((a,s)=>a+num(s.activationBonus??s.eligible),0))}</div><div class="small">${idr(chosen.reduce((a,s)=>a+num(s.activationBonus??s.eligible),0))}</div></div><div class="compare-metric"><div class="label">Trading Commission</div><div class="big">${usd(chosen.reduce((a,s)=>a+num(s.lotBonus),0))}</div><div class="small">${idr(chosen.reduce((a,s)=>a+num(s.lotBonus),0))}</div></div></div><div class="command-footnote">Commission reflects the uploaded system report. It is not a prediction of future earnings.</div>`;
+}
+function renderOverview(){
+ let t=totals(),sales=saleData(),cats=statusData(),contactRate=t.assigned?t.contacted/t.assigned*100:0,activeRate=t.assigned?num(t.active)/t.assigned*100:0,bonus=(t.activationBonus||t.eligible||0)+(t.lotBonus||0);
+ $("overviewKpis").innerHTML=[
+  moneyMetric("Assigned Customers",fmt(t.assigned),"Current assignment base","♙","#7557d6"),
+  moneyMetric("Contact Rate",fmt(contactRate,2)+"%",`${fmt(t.contacted)} contacted customers`,"↗","#36a88e"),
+  moneyMetric("Active Rate",fmt(activeRate,2)+"%",`${fmt(t.active)} active · deposit + trading`,"✓","#249b72"),
+  moneyMetric("Estimated Total Bonus",usd(bonus),`${idr(bonus)} · ${usd(t.activationBonus)} activation + ${usd(t.lotBonus)} lot`,"$","#d09a35")
+ ].join("");
+ let maxActive=Math.max(1,...sales.map(s=>num(s.active)));
+ $("salesBars").innerHTML=sales.map(s=>`<div class="barrow"><span class="barlabel">${s.sales}</span><div class="bartrack"><div class="barfill" style="width:${num(s.active)/maxActive*100}%"></div></div><b class="barvalue">${fmt(s.active)}</b></div>`).join("");
+ let max=Math.max(1,...cats.map(x=>x.count));
+ $("statusBars").innerHTML=cats.map(c=>`<div class="barrow"><span class="barlabel">${c.label.replace("Before Contact · ","").replace("After Contact · ","")}</span><div class="bartrack"><div class="barfill" style="width:${c.count/max*100}%;background:${c.stage==="after"?"linear-gradient(90deg,#80d4bf,#2eaa8c)":"linear-gradient(90deg,#c4b7f2,#8d78dc)"}"></div></div><b class="barvalue">${fmt(c.count)}</b></div>`).join("");
+ $("overviewSalesTable").innerHTML=salesTable(sales);bindSalesRows("overviewSalesTable");attachCurrencyToggles($("overviewSalesTable"));
+ $("heroDate").textContent=state.summary.reportDate?new Date(state.summary.reportDate+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"long",year:"numeric"}):"Latest report";
+ $("headerPeriod").textContent=(state.summary.reportMonth||"LATEST REPORT").toUpperCase()+" · AS OF "+(state.summary.reportDate||"DATE NOT SET");
+ $("sidebarPeriod").textContent=(state.summary.reportMonth||"Current report")+" · "+(state.summary.reportDate||"Snapshot");
+}
+function selectedSalesRows(){
+ let all=saleData(),choice=$("salesStatusSelect")?.value||"all";
+ return choice==="all"?all:all.filter(s=>encodeURIComponent(s.sales)===choice);
+}
+function aggregateSales(rows){
+ return rows.reduce((a,s)=>{
+  for(let k of ["assigned","contacted","active","eligible","eligibleLots","activationBonus","lotBonus","contactedActive","uncontactedActive"])a[k]+=num(s[k]);
+  return a;
+ },{assigned:0,contacted:0,active:0,eligible:0,eligibleLots:0,activationBonus:0,lotBonus:0,contactedActive:0,uncontactedActive:0});
+}
+function renderSales(){
+ let all=saleData(),select=$("salesStatusSelect"),previous=select.value||"all";
+ select.innerHTML='<option value="all">All Sales Owners</option>'+all.map(s=>`<option value="${encodeURIComponent(s.sales)}">${escHtml(s.sales)}</option>`).join("");
+ if([...select.options].some(o=>o.value===previous))select.value=previous;
+ let sales=selectedSalesRows(),t=aggregateSales(sales),contactRate=t.assigned?t.contacted/t.assigned*100:0,activeRate=t.assigned?t.active/t.assigned*100:0;
+ $("salesKpis").innerHTML=[
+  moneyMetric("Sales Owners",fmt(sales.length),sales.length===1?`Selected: ${sales[0].sales}`:"Included in this report","♙","#7557d6"),
+  moneyMetric("Assigned Customers",fmt(t.assigned),"Current assignment base","▤","#678ee4"),
+  moneyMetric("Contact Rate",fmt(contactRate,2)+"%",`Target 15% · ${fmt(t.contacted)} contacted`,"↗","#35a98c"),
+  moneyMetric("Active Rate",fmt(activeRate,2)+"%",`${fmt(t.active)} deposit + trading customers`,"✓","#d19a35")
+ ].join("");
+ renderSalesStatus();
+ $("salesDetailTable").innerHTML=salesTable(sales);bindSalesRows("salesDetailTable");attachCurrencyToggles($("salesDetailTable"));
+ renderContactComparison();renderSalesEvaluations();
+}
+function renderSalesStatus(){
+ let chosen=selectedSalesRows();
+ let count={};for(let d of STATUS)count[d.key]=chosen.reduce((sum,s)=>sum+Number((s.categories||{})[d.key]||0),0);
+ for(let stage of ["before","after"]){
+  let defs=STATUS.filter(d=>d.stage===stage),max=Math.max(1,...defs.map(d=>count[d.key]));
+  $("sales"+(stage==="before"?"Before":"After")+"Bars").innerHTML=defs.map(d=>`<div class="barrow"><span class="barlabel">${d.label.split(" · ").slice(1).join(" · ")}</span><div class="bartrack"><div class="barfill" style="width:${count[d.key]/max*100}%;background:${stage==="after"?"linear-gradient(90deg,#80d4bf,#2eaa8c)":"linear-gradient(90deg,#c4b7f2,#8d78dc)"}"></div></div><b class="barvalue">${fmt(count[d.key])}</b></div>`).join("");
+ }
+ $("salesStatusTable").innerHTML=`<table class="data-table"><thead><tr><th>Status Category</th><th>Customer Count</th><th>Lifecycle Stage</th></tr></thead><tbody>${STATUS.map(d=>`<tr><td>${d.label}</td><td class="num">${fmt(count[d.key])}</td><td><span class="tag ${d.stage==="after"?"green":"blue"}">${d.stage==="after"?"After Contact":"Before Contact"}</span></td></tr>`).join("")}</tbody></table>`;
+}
+function renderContactComparison(){
+ let rows=selectedSalesRows();
+ let contacted=rows.reduce((a,s)=>a+num(s.contactedActive),0),uncontacted=rows.reduce((a,s)=>a+num(s.uncontactedActive),0),total=contacted+uncontacted;
+ let cShare=total?contacted/total*100:0,uShare=total?uncontacted/total*100:0;
+ $("contactComparison").innerHTML=`
+  <div class="summarycards">
+   <div class="compare-metric"><div class="label">Contacted + Deposit + Trading</div><div class="big" style="color:var(--green)">${fmt(contacted)}</div><div class="small">${fmt(cShare,1)}% of active customers</div></div>
+   <div class="compare-metric"><div class="label">Uncontacted + Deposit + Trading</div><div class="big" style="color:var(--purple)">${fmt(uncontacted)}</div><div class="small">${fmt(uShare,1)}% of active customers · recovery opportunity</div></div>
+   <div class="compare-metric"><div class="label">Total Active Customers</div><div class="big">${fmt(total)}</div><div class="small">Deposit + Trading, whether contacted or not</div></div>
+  </div>
+  <div class="compare-bar"><div class="compare-contacted" style="width:${cShare}%"></div><div class="compare-uncontacted" style="width:${uShare}%"></div></div>
+  <div class="legend"><span><i style="background:#36b69b"></i>Contacted & active</span><span><i style="background:#8d78dc"></i>Uncontacted but already deposited & traded</span></div>
+  <div class="tablewrap" style="margin-top:12px"><table class="data-table"><thead><tr><th>Sales</th><th>Contacted Active</th><th>Uncontacted Active</th><th>Total Active</th><th>Contacted Share</th><th>Uncontacted Share</th><th>Recovery Opportunity</th></tr></thead><tbody>
+  ${rows.map(s=>{let c=num(s.contactedActive),u=num(s.uncontactedActive),n=c+u;return `<tr><td><b>${s.sales}</b></td><td class="positive">${fmt(c)}</td><td>${fmt(u)}</td><td><b>${fmt(n)}</b></td><td>${fmt(n?c/n*100:0,1)}%</td><td>${fmt(n?u/n*100:0,1)}%</td><td class="${u>c?"positive":""}">${fmt(u)}</td></tr>`}).join("")}
+  </tbody></table></div>
+  <div class="small" style="margin-top:10px">Active = Deposit + Trading. Contacted Active and Uncontacted Active are unique customer counts from the Export worksheet, grouped by SID and contact status. The same “Before Contact” tag is not automatically counted as uncontacted: customers already contacted are placed in the Contacted Active group.</div>`;
+}
+function renderSalesEvaluations(){
+ let allSales=saleData(),teamContacted=allSales.reduce((a,s)=>a+num(s.contacted),0),teamContactedActive=allSales.reduce((a,s)=>a+num(s.contactedActive),0),teamConversion=teamContacted?teamContactedActive/teamContacted*100:0;
+ let rows=selectedSalesRows();
+ $("salesEvaluations").innerHTML=rows.map(s=>{
+  let cr=s.assigned?s.contacted/s.assigned*100:0,ar=s.assigned?num(s.active)/s.assigned*100:0,conv=s.contacted?num(s.contactedActive)/s.contacted*100:0;
+  let cNote=cr>=15?`Contact Rate is ${fmt(cr,2)}%, meeting the 15% initial target. Maintain the current contact pace.`:cr>=10?`Contact Rate is ${fmt(cr,2)}%, below the 15% target. Increase successful customer conversations by ${fmt(s.assigned*.15-s.contacted,0)} to reach the target at the current assignment base.`:`Contact Rate is ${fmt(cr,2)}%, below the 10% warning floor. Prioritise daily reach-out coverage and reattempts for high-potential assigned customers.`;
+  let aNote=ar>=1.5?`Active Rate is ${fmt(ar,2)}%, above the 1.5% stretch target. Maintain deposit and trading activation.`:ar>=1?`Active Rate is ${fmt(ar,2)}%, meeting the 1% minimum. Work towards the 1.5% stretch target.`:`Active Rate is ${fmt(ar,2)}%, below the 1% minimum. Review the deposit-to-trading pipeline and follow-up opportunities.`;
+  let convNote=conv>=teamConversion?`Contacted-to-Active conversion is ${fmt(conv,2)}%, at or above the team average of ${fmt(teamConversion,2)}%.`:`Contacted-to-Active conversion is ${fmt(conv,2)}%, below the team average of ${fmt(teamConversion,2)}%. Review conversation quality and the follow-up path from contact to deposit and trading.`;
+  let gap=num(s.uncontactedActive);
+  let gapNote=gap?`${fmt(gap)} customers are already deposited and trading but remain uncontacted. Prioritise recovery and proper attribution.`:"No uncontacted active customers were identified in this report.";
+  return `<div class="eval-card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h4>${s.sales}</h4><span class="tag ${cr>=15&&ar>=1?"green":cr<10||ar<1?"red":"amber"}">${cr>=15&&ar>=1?"On track":cr<10||ar<1?"Priority action":"Monitor"}</span></div><div class="small">Contact Rate <b>${fmt(cr,2)}%</b> · Active Rate <b>${fmt(ar,2)}%</b> · Contact-to-Active <b>${fmt(conv,2)}%</b></div><p><b>Contact:</b> ${cNote}</p><p><b>Active:</b> ${aNote}</p><p><b>Conversion:</b> ${convNote}</p><p><b>Opportunity gap:</b> ${gapNote}</p></div>`;
+ }).join("");
+}
+function renderStatus(){
+ let cats=statusData();
+ for(let stage of ["before","after"]){let arr=cats.filter(c=>c.stage===stage),max=Math.max(1,...arr.map(x=>x.count));$(""+(stage==="before"?"beforeBars":"afterBars")).innerHTML=arr.map(c=>`<div class="barrow"><span class="barlabel">${c.label.split(" · ").slice(1).join(" · ")}</span><div class="bartrack"><div class="barfill" style="width:${c.count/max*100}%;background:${stage==="after"?"linear-gradient(90deg,#80d4bf,#2eaa8c)":"linear-gradient(90deg,#c4b7f2,#8d78dc)"}"></div></div><b class="barvalue">${fmt(c.count)}</b></div>`).join("")}
+ let sales=saleData();
+ $("statusTable").innerHTML=`<table class="data-table"><thead><tr><th>Sales</th>${cats.map(c=>`<th>${c.label.replace("Before Contact · ","Before · ").replace("After Contact · ","After · ")}</th>`).join("")}</tr></thead><tbody>${sales.map(s=>`<tr><td><b>${s.sales}</b></td>${cats.map(c=>`<td class="num">${fmt((s.categories||{})[c.key]||0)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+}
+function simpleLineChart(data,key,label,color="#7557d6"){
+ if(!data.length)return `<div class="empty">Upload a workbook with reward details to populate the trend.</div>`;
+ let values=data.map(x=>Number(x[key]||0)),max=Math.max(1,...values),min=0,w=800,h=220,pad={l:42,r:18,t:16,b:30},cw=w-pad.l-pad.r,ch=h-pad.t-pad.b;
+ let pts=values.map((v,i)=>[pad.l+(data.length===1?cw/2:i*cw/(data.length-1)),pad.t+ch-(v-min)/(max-min)*ch]);
+ let path=pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ");
+ let area=path+` L ${pts[pts.length-1][0]} ${pad.t+ch} L ${pts[0][0]} ${pad.t+ch} Z`;
+ let xlabels=data.map((d,i)=>i%Math.max(1,Math.ceil(data.length/8))===0?d.date.slice(5):"");
+ return `<svg class="chart" viewBox="0 0 ${w} ${h}" role="img" aria-label="${label} trend"><defs><linearGradient id="chartArea" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="${color}" stop-opacity=".24"/><stop offset="1" stop-color="${color}" stop-opacity=".01"/></linearGradient></defs>${[0,.25,.5,.75,1].map(p=>`<line class="gridline" x1="${pad.l}" x2="${w-pad.r}" y1="${pad.t+ch*p}" y2="${pad.t+ch*p}"/>`).join("")}<path d="${area}" fill="url(#chartArea)"/><path d="${path}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>${pts.map((p,i)=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="#fff" stroke="${color}" stroke-width="2"><title>${data[i].date}: ${fmt(values[i],2)}</title></circle>`).join("")}${xlabels.map((x,i)=>x?`<text class="axistext" x="${pts[i][0]}" y="${h-8}" text-anchor="middle">${x}</text>`:"").join("")}<text class="axistext" x="6" y="${pad.t+9}">${fmt(max,2)}</text><text class="axistext" x="6" y="${pad.t+ch}">0</text></svg>`;
+}
+function renderDaily(){
+ let d=state.summary.daily||[],t=totals(),days=d.filter(x=>num(x.newEligible)>0),totalNew=days.reduce((a,x)=>a+num(x.newEligible),0),peak=days.reduce((best,x)=>num(x.newEligible)>num(best?.newEligible)?x:best,null);
+ $("dailyKpis").innerHTML=[
+  moneyMetric("Bonus-Eligible Activations",fmt(t.eligible),"Eligible customers in this report","✓","#249b72"),
+  moneyMetric("Days with Activations",fmt(days.length),"Dates with recorded rewards","◷","#7557d6"),
+  moneyMetric("Average per Active Day",fmt(days.length?totalNew/days.length:0,1),"Bonus-eligible customers per day","↗","#678ee4"),
+  moneyMetric("Peak Activation Day",peak?fmt(peak.newEligible):"—",peak?peak.date:"No daily detail supplied","★","#d09a35")
+ ].join("");
+ $("dailyActivationChart").innerHTML=simpleLineChart(d,"newEligible","Daily bonus-eligible activations");
+}
+function renderBonus(){
+ let t=totals(),sales=saleData(),total=(t.activationBonus||t.eligible||0)+(t.lotBonus||0);
+ $("bonusKpis").innerHTML=[moneyMetric("Activation Commission (USD)",usd(t.activationBonus||t.eligible),`IDR equivalent: ${idr(t.activationBonus||t.eligible)}`,"$","#7557d6"),moneyMetric("Eligible Lot Commission (USD)",usd(t.lotBonus),`IDR equivalent: ${idr(t.lotBonus)}`,"▥","#36a88e"),moneyMetric("Estimated Total Bonus (USD)",usd(total),`IDR equivalent: ${idr(total)}`,"✓","#d09a35"),moneyMetric("Eligible Trading Lots",fmt(t.eligibleLots,4),"Only eligible customers","◌","#678ee4")].join("");
+ $("bonusTable").innerHTML=`<table class="data-table"><thead><tr><th>Sales Owner</th><th>Eligible</th><th>Activation ($1)</th><th>Eligible Lots</th><th>Lot Commission (USD)</th><th>Lot Commission (IDR)</th><th>Total Commission (USD)</th><th>Total Commission (IDR)</th></tr></thead><tbody>${sales.map(s=>`<tr><td><b>${s.sales}</b></td><td class="positive">${fmt(s.eligible)}</td><td>${usd(s.activationBonus)}</td><td>${fmt(s.eligibleLots,4)}</td><td>${usd(s.lotBonus)}</td><td>${idr(s.lotBonus)}</td><td class="positive"><b>${usd(s.activationBonus+s.lotBonus)}</b></td><td class="positive"><b>${idr(s.activationBonus+s.lotBonus)}</b></td></tr>`).join("")}<tr style="background:#faf9fd;font-weight:800"><td>TOTAL</td><td>${fmt(t.eligible)}</td><td>${usd(t.activationBonus)}</td><td>${fmt(t.eligibleLots,4)}</td><td>${usd(t.lotBonus)}</td><td>${idr(t.lotBonus)}</td><td class="positive">${usd(total)}</td><td class="positive">${idr(total)}</td></tr></tbody></table>`;
+}
+function translateCell(v){
+ let x=String(v??"");
+ const map={
+  "已联系上":"Contacted","未联系上":"Not Contacted","当月已充值":"Deposited this month","当月未充值":"No deposit this month",
+  "当月已交易":"Traded this month","当月未交易":"No trading this month","未联系":"Not contacted",
+  "已激活":"Activated","已分配":"Assigned","未分配":"Unassigned",
+  "已联系_未充值_已交易":"Contacted · No Deposit · Traded",
+  "已联系_已充值_未交易":"Contacted · Deposited · No Trading",
+  "已联系_未充值_未交易":"Contacted · No Deposit · No Trading"
+ };
+ if(map[x])return map[x];
+ const status=STATUS.find(z=>z.key===x);return status?status.label:x;
+}
+function monthLatestSnapshots(){
+ let map=new Map();
+ for(let snap of state.snapshots||[]){let key=snap.reportMonth||"Unspecified",old=map.get(key);if(!old||String(snap.reportDate)>String(old.reportDate))map.set(key,snap)}
+ return [...map.values()].sort((a,b)=>String(a.reportMonth).localeCompare(String(b.reportMonth)));
+}
+function renderMonthly(){
+ let months=monthLatestSnapshots();
+ let totalAssigned=months.reduce((a,m)=>a+num(m.totals.assigned),0),totalActive=months.reduce((a,m)=>a+num(m.totals.active),0),totalEligible=months.reduce((a,m)=>a+num(m.totals.eligible),0),totalBonus=months.reduce((a,m)=>a+num(m.totals.activationBonus||m.totals.eligible)+num(m.totals.lotBonus),0);
+ $("monthlyKpis").innerHTML=[
+  moneyMetric("Months Loaded",fmt(months.length),"One latest snapshot per month","▤","#7557d6"),
+  moneyMetric("Assigned Customers",fmt(totalAssigned),"Across loaded months","♙","#678ee4"),
+  moneyMetric("Active Customers",fmt(totalActive),"Deposit + Trading","✓","#36a88e"),
+  moneyMetric("Estimated Bonus (USD)",usd(totalBonus),`IDR equivalent: ${idr(totalBonus)}`,"$","#d09a35")
+ ].join("");
+ $("monthlyTable").innerHTML=rowsTable(months,["Month","Latest Snapshot","Assigned","Contacted","Contact Rate","Active","Active Rate","Bonus Eligible","Estimated Bonus (USD)","Estimated Bonus (IDR)"],m=>{let t=m.totals;return `<td><b>${m.reportMonth||"—"}</b></td><td>${m.reportDate||"—"}</td><td>${fmt(t.assigned)}</td><td>${fmt(t.contacted)}</td><td>${fmt(t.assigned?t.contacted/t.assigned*100:0,2)}%</td><td class="positive">${fmt(t.active)}</td><td>${fmt(t.assigned?t.active/t.assigned*100:0,2)}%</td><td>${fmt(t.eligible)}</td><td class="positive">${usd(num(t.activationBonus||t.eligible)+num(t.lotBonus))}</td><td class="positive">${idr(num(t.activationBonus||t.eligible)+num(t.lotBonus))}</td>`});
+}
+function renderAnnual(){
+ let months=monthLatestSnapshots(),years=new Map();
+ for(let m of months){let y=String(m.reportMonth||"Unspecified").slice(0,4),a=years.get(y)||{year:y,months:0,assigned:0,contacted:0,active:0,eligible:0,activationBonus:0,eligibleLots:0,lotBonus:0,netDeposit:0};a.months++;for(let k of ["assigned","contacted","active","eligible","activationBonus","eligibleLots","lotBonus","netDeposit"])a[k]+=num(m.totals[k]);years.set(y,a)}
+ let rows=[...years.values()].sort((a,b)=>a.year.localeCompare(b.year)),assigned=rows.reduce((a,x)=>a+x.assigned,0),active=rows.reduce((a,x)=>a+x.active,0),eligible=rows.reduce((a,x)=>a+x.eligible,0),bonus=rows.reduce((a,x)=>a+x.activationBonus+x.lotBonus,0);
+ $("annualKpis").innerHTML=[
+  moneyMetric("Years Loaded",fmt(rows.length),"From imported monthly snapshots","▥","#7557d6"),
+  moneyMetric("Months Included",fmt(rows.reduce((a,x)=>a+x.months,0)),"Year-to-date coverage","▤","#678ee4"),
+  moneyMetric("Active Customers",fmt(active),"Deposit + Trading","✓","#36a88e"),
+  moneyMetric("Estimated Bonus (USD)",usd(bonus),`IDR equivalent: ${idr(bonus)}`,"$","#d09a35")
+ ].join("");
+ $("annualTable").innerHTML=rowsTable(rows,["Year","Months Included","Assigned","Contacted","Contact Rate","Active","Active Rate","Bonus Eligible","Net Deposit","Estimated Bonus (USD)","Estimated Bonus (IDR)"],r=>`<td><b>${r.year}</b></td><td>${r.months}</td><td>${fmt(r.assigned)}</td><td>${fmt(r.contacted)}</td><td>${fmt(r.assigned?r.contacted/r.assigned*100:0,2)}%</td><td class="positive">${fmt(r.active)}</td><td>${fmt(r.assigned?r.active/r.assigned*100:0,2)}%</td><td>${fmt(r.eligible)}</td><td>${usd(r.netDeposit)}</td><td class="positive">${usd(r.activationBonus+r.lotBonus)}</td><td class="positive">${idr(r.activationBonus+r.lotBonus)}</td>`);
+}
+function renderCustomers(){
+ let list=state.customers||[],q=($("customerSearch").value||"").toLowerCase(),salesFilter=$("customerSales").value,stage=$("customerStage").value;
+ $("customerCount").textContent=list.length?fmt(list.length)+" customer records":"Sample summary only";
+ if(!list.length){$("customerTable").innerHTML=`<div class="empty">Upload the system workbook to populate customer records from the Export sheet.</div>`;return}
+ let filtered=list.filter(c=>(!q||c.sid.toLowerCase().includes(q)||c.sales.toLowerCase().includes(q))&&(salesFilter==="all"||c.sales===salesFilter)&&(stage==="all"||(stage==="contacted"?c.contacted:c.contacted===false)));
+ $("customerTable").innerHTML=rowsTable(filtered.slice(0,500),["SID","Sales","Contact status","Contacted time","Activation status","Movement categories"],r=>`<td>••••${r.sid.slice(-4)}</td><td>${r.sales}</td><td>${r.contacted?'<span class="tag green">Contacted</span>':'<span class="tag">Not contacted</span>'}</td><td>${r.contactTime||"—"}</td><td>${r.active?'<span class="tag green">Active</span>':(translateCell(r.activationStatus)||"—")}</td><td>${r.tags.length}</td>`);
+ [...$("customerTable").querySelectorAll("tbody tr")].forEach((tr,i)=>tr.addEventListener("click",()=>openCustomer(filtered[i])));
+}
+function openCustomer(c){
+ $("drawerTitle").textContent="Customer · ••••"+c.sid.slice(-4);
+ $("drawerBody").innerHTML=[["Customer SID",c.sid],["Sales Owner",c.sales],["Country",c.country],["Assignment Date",c.assignedDate],["Contacted Time",c.contactTime],["Contact Status",translateCell(c.contactStatus)],["Current Activation Status",translateCell(c.activationStatus)],["Active (Deposit + Trading)",c.active?"Yes":"No"],["Latest Movement Tag",translateCell(c.latestTag)],["Deposit Status",translateCell(c.depositStatus)],["Trading Date",c.tradingDate],["Net Deposit",c.netDeposit],["Trading Lots",c.lots],["Reward Activation",c.activationReward],["Lot Reward",c.lotReward]].map(([k,v])=>`<div class="field"><label>${k}</label><strong>${v??"—"}</strong></div>`).join("")+`<div class="field"><label>Recorded activity tags</label><strong>${(c.tags||[]).join("<br>")||"—"}</strong></div>`;
+ $("drawerBack").classList.add("open");
+}
+function proofIssueRows(){
+ return (state.personal||[]).filter(r=>(r.automaticIssues||[]).length||(r.confirmedIssues||[]).length);
+}
+function proofStatusCounts(list){
+ const count={};
+ for(let r of list){
+  const add=k=>count[k]=(count[k]||0)+1;
+  if((r.automaticIssues||[]).some(x=>x.startsWith("Missing Contacted Time")))add("missing-time");
+  if((r.automaticIssues||[]).some(x=>x.startsWith("Missing Proof")))add("missing-proof");
+  if(r.duplicate)add("duplicate");
+  if((r.reviewFlags||[]).some(x=>x.toLowerCase().includes("manual review")))add("manual");
+  if((r.reviewFlags||[]).some(x=>x.toLowerCase().includes("phone mismatch")))add("phone-mismatch");
+  if((r.confirmedIssues||[]).length)add("confirmed");
+ }
+ return count;
+}
+function selectedProofRows(){
+ let sales=$("proofSalesFilter")?.value||"all",status=$("proofStatusFilter")?.value||"all",list=state.personal||[];
+ if(sales!=="all")list=list.filter(r=>r.sales===decodeURIComponent(sales));
+ if(status==="all")return list;
+ if(status==="missing-time")return list.filter(r=>(r.automaticIssues||[]).some(x=>x.startsWith("Missing Contacted Time")));
+ if(status==="missing-proof")return list.filter(r=>(r.automaticIssues||[]).some(x=>x.startsWith("Missing Proof")));
+ if(status==="duplicate")return list.filter(r=>r.duplicate);
+ if(status==="phone-mismatch")return list.filter(r=>(r.reviewFlags||[]).some(x=>x.toLowerCase().includes("phone mismatch")));
+ if(status==="manual")return list.filter(r=>(r.reviewFlags||[]).some(x=>x.toLowerCase().includes("manual review"))||r.reviewStatus==="Manual Review");
+ if(status==="confirmed")return list.filter(r=>(r.confirmedIssues||[]).length);
+ if(status==="issues")return list.filter(r=>(r.automaticIssues||[]).length||(r.confirmedIssues||[]).length||(r.reviewFlags||[]).length);
+ return list;
+}
+function selectedProofExceptions(){return selectedProofRows().filter(r=>(r.automaticIssues||[]).length||(r.confirmedIssues||[]).length);}
+function proofIssuesForRecord(r){return [...(r.automaticIssues||[]),...(r.confirmedIssues||[])];}
+function proofStatusLabel(r){
+ if(r.confirmedIssues?.length)return "Confirmed Mismatch";
+ if(r.duplicate)return "Duplicate Input";
+ if((r.automaticIssues||[]).some(x=>x.startsWith("Missing Contacted Time")))return "Missing Contacted Time";
+ if((r.automaticIssues||[]).some(x=>x.startsWith("Missing Proof")))return "Missing Proof";
+ if((r.automaticIssues||[]).some(x=>x.startsWith("Contacted Flag Conflict")))return "Contacted Flag Conflict";
+ if((r.reviewFlags||[]).length)return "Manual Review · Phone";
+ if(r.reviewStatus==="Manual Review")return "Manual Review";
+ return "No Issues";
+}
+function buildProofSummary(){
+ let list=selectedProofRows(),exceptions=list.filter(r=>(r.automaticIssues||[]).length||(r.confirmedIssues||[]).length),salesValue=$("proofSalesFilter")?.value||"all";
+ let groups=new Map();
+ for(let r of exceptions){let owner=r.sales||"Unassigned";if(!groups.has(owner))groups.set(owner,[]);groups.get(owner).push(r)}
+ if(exceptions.length){
+  let lines=[];
+  for(let [owner,items] of groups){
+   lines.push(`Halo ${owner}, mohon bantu koreksi data Contact Proof berikut:`);
+   for(let r of items)lines.push(`- SID ${r.sid}: ${proofIssuesForRecord(r).join("; ")}.`);
+   lines.push(`Total: ${items.length} customer record(s) perlu diperbaiki.`,"");
+  }
+  return lines.join("\n").trim();
+ }
+ let contacted=list.filter(r=>r.contacted),withPhoto=contacted.filter(r=>r.proofImages?.length),withTime=contacted.filter(r=>r.contactTime);
+ let owner=salesValue==="all"?"team":decodeURIComponent(salesValue);
+ if(!list.length)return "No records in this filter. Upload a personal contact file or change the filters.";
+ return `Halo ${owner}, hasil pemeriksaan Contact Proof:\nTidak ada koreksi terkonfirmasi pada filter ini.\n${contacted.length} record Contacted = 1; ${withPhoto.length} record memiliki foto; ${withTime.length} record memiliki Contacted Time.\nPhone mismatch / OCR yang belum diverifikasi tidak dimasukkan sebagai koreksi.`;
+}
+function refreshProofSalesFilter(){
+ let select=$("proofSalesFilter");if(!select)return;
+ let current=select.value||"all",owners=[...new Set((state.personal||[]).map(r=>r.sales||"Unassigned"))].sort();
+ select.innerHTML='<option value="all">All Sales Owners</option>'+owners.map(x=>`<option value="${encodeURIComponent(x)}">${escHtml(x)}</option>`).join("");
+ if([...select.options].some(o=>o.value===current))select.value=current;
+}
+function refreshProofStatusFilter(){
+ let select=$("proofStatusFilter"),wrap=$("proofStatusFilterWrap");if(!select||!wrap)return;
+ let sales=$("proofSalesFilter")?.value||"all",list=state.personal||[];
+ if(sales!=="all")list=list.filter(r=>r.sales===decodeURIComponent(sales));
+ const counts=proofStatusCounts(list),defs=[
+  ["missing-time","Missing Contacted Time"],
+  ["missing-proof","Missing Proof"],
+  ["duplicate","Duplicate SID"],
+  ["phone-mismatch","Phone Mismatch · Verify"],
+  ["manual","Manual Review"],
+  ["confirmed","Confirmed Mismatch"]
+ ];
+ let available=defs.filter(([key])=>counts[key]>0),previous=select.value;
+ if(!available.length){wrap.style.display="none";select.innerHTML="";return}
+ wrap.style.display="inline-flex";
+ select.innerHTML='<option value="issues">All review items</option>'+available.map(([key,label])=>`<option value="${key}">${label} (${counts[key]})</option>`).join("");
+ if([...select.options].some(o=>o.value===previous))select.value=previous;else select.value="issues";
+}
+function renderProof(){
+ refreshProofStatusFilter();
+ let all=state.personal||[],contacted=all.filter(x=>x.contacted),rows=selectedProofRows(),exceptions=rows.filter(r=>(r.automaticIssues||[]).length||(r.confirmedIssues||[]).length);
+ let missingImage=contacted.filter(x=>(x.proofImages||[]).length===0).length,missingTime=contacted.filter(x=>!x.contactTime).length;
+ let duplicates=all.filter(x=>x.duplicate).length,phoneFlags=all.filter(x=>(x.reviewFlags||[]).length).length,manual=all.filter(x=>x.reviewStatus==="Manual Review").length;
+ $("proofKpis").innerHTML=[
+  moneyMetric("Contacted = 1",fmt(contacted.length),"Call OR Chatroom OR WhatsApp = 1","✓","#36a88e"),
+  moneyMetric("Missing Proof",fmt(missingImage),"Contacted = 1 without a linked proof photo","▣","#678ee4"),
+  moneyMetric("Missing Contact Time",fmt(missingTime),"Contacted = 1 without Contacted Time","◷","#7557d6"),
+  moneyMetric("Review Items",fmt(all.filter(x=>x.automaticIssues.length||x.confirmedIssues.length||x.reviewFlags.length).length),`${duplicates} duplicate rows · ${phoneFlags} phone checks · ${manual} manual reviews`,"!","#d55f72")
+ ].join("");
+ const reason=r=>[...proofIssuesForRecord(r),...(r.reviewFlags||[])].join("; ")||"No issue detected";
+ const statusClass=r=>r.confirmedIssues?.length||r.automaticIssues?.length?"proof-bad":(r.reviewFlags?.length||r.reviewStatus==="Manual Review")?"proof-warn":"proof-ok";
+ $("proofTable").innerHTML=rowsTable(rows.slice(0,700),["SID","Sales","Contacted Time","Proof","Correction / review reason","Status"],r=>`<td>${escHtml(r.sid)}</td><td>${escHtml(r.sales||"—")}</td><td>${escHtml(r.contactTime||"—")}</td><td>${r.proofImages?.length?`<img class="proof-thumb" src="${r.proofImages[0].dataUrl}" alt="proof">`:'<span class="proof-status proof-bad">No photo</span>'}</td><td class="exception-reason">${escHtml(reason(r))}</td><td><span class="proof-status ${statusClass(r)}">${escHtml(proofStatusLabel(r))}</span></td>`);
+ [...$("proofTable").querySelectorAll("tbody tr")].forEach((tr,i)=>tr.addEventListener("click",()=>openProof(rows[i])));
+ if(!rows.length)$("proofTable").innerHTML='<div class="empty">No corrections or reviews are required for the selected sales owner. All available contact-channel flags are consistent with the current proof checks.</div>';
+ $("proofSummaryText").value=buildProofSummary();
+ $("proofSummaryStatus").textContent=`${rows.length} record(s) in current filter · ${exceptions.length} structural / confirmed correction(s) · ${contacted.length} contacted record(s) in file.`;
+}
+function openProof(r){
+ window.currentProof=r;
+ let imgs=(r.proofImages||[]).map((im,i)=>`<div><div class="small">Proof image ${i+1} · Excel row ${im.row} · Contacted Proof column</div><img class="proofpreview" src="${im.dataUrl}" alt="Contact proof"></div>`).join("");
+ let ocrText=r.ocrStatus==="Potential discrepancy"?(r.ocrFindings||[]).join("; "):r.ocrStatus||"Not scanned";
+ $("drawerTitle").textContent="Proof Exception · "+r.sid;
+ $("drawerBody").innerHTML=`<div class="noticebar"><b>Automatic issue:</b> ${(r.automaticIssues||[]).map(escHtml).join("; ")||"No structural issue."}<br><b>Review flags (not yet confirmed):</b> ${(r.reviewFlags||[]).map(escHtml).join("; ")||"None"}<br><b>Confirmed review issue:</b> ${(r.confirmedIssues||[]).map(escHtml).join("; ")||"None"}<br><b>OCR:</b> ${escHtml(ocrText)}. OCR findings are suggestions and do not create correction items until confirmed.</div>
+ <div class="proof-images">${imgs||'<div class="proof-status proof-bad">No embedded proof image found for this customer row.</div>'}</div>
+ ${[["SID",r.sid],["Name",r.name],["Phone Number",maskPhone(r.phone)],["Sales Owner",r.sales],["Call Data",r.channelFlags?.call??"—"],["Chatroom Data",r.channelFlags?.chatroom??"—"],["WhatsApp Data",r.channelFlags?.whatsapp??"—"],["Contacted (OR rule)",r.contacted?"1":"0"],["Contacted Time",r.contactTime],["Deposit Date",r.depositDate+" · Manual / Provisional"],["Trading Date",r.tradingDate],["Excel Row",r.excelRow],["Notes",r.notes]].map(([k,v])=>`<div class="field"><label>${k}</label><strong>${escHtml(v||"—")}</strong></div>`).join("")}
+ <div class="field"><label>OCR suggestions (advisory only)</label><div class="small">${(r.ocrFindings||[]).map(escHtml).join("; ")||"No OCR suggestions."}</div></div>
+ <div class="field"><label>Manual comparison (optional)</label><input class="drawerinput" id="proofSid" placeholder="SID shown in proof" value="${escHtml(r.proofSid||"")}"><input class="drawerinput" id="proofName" placeholder="Name shown in proof (if visible)" value="${escHtml(r.proofName||"")}"><input class="drawerinput" id="proofPhone" placeholder="Phone shown in proof" value="${escHtml(r.proofPhone||"")}"><input class="drawerinput" id="proofDate" placeholder="Contact date shown in proof (YYYY-MM-DD)" value="${escHtml(r.proofDate||"")}"><input class="drawerinput" id="proofNote" placeholder="Correction note" value="${escHtml(r.proofNote||"")}"></div>
+ <div class="filters"><button onclick="saveProofReview('compare')">Compare Fields</button><button class="soft" onclick="saveProofReview('mismatch')">Confirm Mismatch</button><button class="ghost" onclick="saveProofReview('clear')">Clear Confirmed Flag</button></div><div id="proofResult"></div>`;
+ $("drawerBack").classList.add("open");
+}
+function saveProofReview(mode){
+ let r=window.currentProof;if(!r)return;
+ r.proofSid=$("proofSid").value.trim();r.proofName=$("proofName").value.trim();r.proofPhone=$("proofPhone").value.trim();r.proofDate=$("proofDate").value.trim();r.proofNote=$("proofNote").value.trim();
+ if(mode==="compare"){
+  let issues=[],compared=[];
+  if(r.proofSid){compared.push("SID");if(r.proofSid!==r.sid)issues.push("SID mismatch")}
+  if(r.proofName&&r.name&&r.name!=="--"){compared.push("Name");if(norm(r.proofName)!==norm(r.name))issues.push("Name mismatch")}
+  if(r.proofPhone&&r.phone){compared.push("Phone");if(phoneKey(r.proofPhone)!==phoneKey(r.phone))issues.push("Phone mismatch")}
+  if(r.proofDate&&r.contactTime){compared.push("Contact date");if(dateText(r.proofDate)!==r.contactTime.slice(0,10))issues.push("Contact date mismatch")}
+  if(!compared.length){
+   $("proofResult").innerHTML='<span class="proof-status proof-warn">Enter at least one visible value from the proof before comparing.</span>';
+   return;
+  }
+  r.confirmedIssues=issues;
+  r.proofMatchSummary=compared.join(" + ")+" compared";
+  r.reviewStatus=issues.length?"Mismatch":"No Exception";
+  $("proofResult").innerHTML=issues.length?`<span class="proof-status proof-bad">${issues.join(" · ")}</span>`:'<span class="proof-status proof-ok">Compared values match. No correction required.</span>';
+ }else if(mode==="mismatch"){
+  r.confirmedIssues=[r.proofNote||"Supervisor confirmed a mismatch after checking the photo."];
+  r.reviewStatus="Mismatch";
+  $("proofResult").innerHTML='<span class="proof-status proof-bad">Mismatch confirmed and added to correction summary.</span>';
+ }else{
+  r.confirmedIssues=[];
+  r.reviewStatus=(r.automaticIssues||[]).length?"Needs Correction":"No Exception";
+  $("proofResult").innerHTML='<span class="proof-status proof-ok">Confirmed flag cleared. Automatic data checks remain unchanged.</span>';
+ }
+ renderProof();
+}
+
+function maskPhone(p){let d=String(p||"").replace(/\D/g,"");return d.length>4?"••••••"+d.slice(-4):(p||"—")}
+function escHtml(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function phoneKey(p){let d=String(p||"").replace(/\D/g,"");return d.slice(-10)}
+function extractExpectedPhoneMatch(text,phone){
+ let expected=phoneKey(phone);if(!expected)return null;
+ let candidates=String(text||"").match(/(?:\+?62|0)?[\d][\d\s().-]{7,}[\d]/g)||[];
+ for(let c of candidates){let d=c.replace(/\D/g,"");if(d.length>=10&&d.slice(-10)===expected)return c}
+ return null;
+}
+function extractOcrDate(text){
+ let t=String(text||"").toLowerCase();
+ const months={jan:1,january:1,feb:2,february:2,mar:3,march:3,apr:4,april:4,may:5,jun:6,june:6,jul:7,july:7,aug:8,august:8,sep:9,sept:9,september:9,oct:10,october:10,nov:11,november:11,dec:12,december:12};
+ let m=t.match(/\b(\d{1,2})\s+(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\b/);
+ if(m)return {month:months[m[2].slice(0,3)],day:Number(m[1]),year:null,raw:m[0]};
+ m=t.match(/\b(jan(?:uary)?|feb(?:ruary)?|mar(?:ch)?|apr(?:il)?|may|jun(?:e)?|jul(?:y)?|aug(?:ust)?|sep(?:t(?:ember)?)?|oct(?:ober)?|nov(?:ember)?|dec(?:ember)?)\s+(\d{1,2})\b/);
+ if(m)return {month:months[m[1].slice(0,3)],day:Number(m[2]),year:null,raw:m[0]};
+ m=t.match(/\b(20\d{2})[-/.](\d{1,2})[-/.](\d{1,2})\b/);
+ if(m)return {year:Number(m[1]),month:Number(m[2]),day:Number(m[3]),raw:m[0]};
+ m=t.match(/\b(\d{1,2})[/-](\d{1,2})[/-](20\d{2})\b/);
+ if(m){let a=Number(m[1]),b=Number(m[2]),y=Number(m[3]);return a>12?{year:y,month:b,day:a,raw:m[0]}:{year:y,month:a,day:b,raw:m[0]}}
+ return null;
+}
+function verifyOcrEvidence(r,text){
+ let suggestions=[],matched=[],expectedDate=r.contactTime?dateText(r.contactTime):"";
+ let sidLabel=String(text||"").match(/\bsid\s*[:#]?\s*(\d{8,16})/i),sidFound=sidLabel?sidLabel[1]:"";
+ let sidMatched=!!sidFound&&sidFound===r.sid;
+ if(sidFound){if(sidMatched)matched.push("SID");else suggestions.push("SID visible in proof differs from the Excel SID")}
+ let phoneMatch=extractExpectedPhoneMatch(text,r.phone);
+ if(phoneMatch)matched.push("Phone");
+ else if(!sidMatched&&r.phone)suggestions.push("Customer phone could not be confidently matched by OCR");
+ let seenDate=extractOcrDate(text);
+ if(seenDate&&expectedDate){
+  let parts=expectedDate.split("-").map(Number);
+  if(seenDate.month===parts[1]&&seenDate.day===parts[2]&&(!seenDate.year||seenDate.year===parts[0]))matched.push("Contact date");
+  else suggestions.push("OCR-read date differs from Contacted Time");
+ }else suggestions.push("Contact date was not confidently readable by OCR");
+ r.ocrText=text;r.ocrChecked=true;
+ r.ocrFindings=suggestions;r.ocrStatus=suggestions.length?"Potential discrepancy — confirm visually":"OCR fields matched";
+ r.ocrMatched=matched;
+ // Do not add OCR findings to automatic or confirmed correction lists.
+ return suggestions;
+}
+async function loadTesseract(){
+ if(window.Tesseract)return window.Tesseract;
+ return new Promise((resolve,reject)=>{let s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js";s.onload=()=>window.Tesseract?resolve(window.Tesseract):reject(new Error("OCR engine did not initialize."));s.onerror=()=>reject(new Error("Could not load OCR engine. Check internet connection."));document.head.appendChild(s)});
+}
+async function scanProofImages(){
+ let btn=$("scanProofBtn"),rows=(state.personal||[]).filter(r=>r.contacted&&(r.proofImages||[]).length);
+ if(!rows.length){$("proofAuditProgress").textContent="No contacted customer with embedded proof images was found.";return}
+ btn.disabled=true;
+ try{
+  $("proofAuditProgress").textContent="Loading local OCR engine…";
+  const T=await loadTesseract();
+  const worker=await T.createWorker("eng",1,{logger:m=>{if(m.status==="recognizing text")$("proofAuditProgress").textContent=`Scanning proof image… ${Math.round((m.progress||0)*100)}%`}});
+  let done=0;
+  for(const r of rows){
+   try{
+    let texts=[];
+    for(const image of r.proofImages){let result=await worker.recognize(image.dataUrl);texts.push(result.data.text||"")}
+    verifyOcrEvidence(r,texts.join("\n"));
+    }catch(err){r.ocrChecked=false;r.ocrStatus="OCR unavailable — manual viewing remains possible";r.ocrFindings=[]}
+   done++;$("proofAuditProgress").textContent=`Scanned ${done} of ${rows.length} contacted proof records.`;
+  }
+  await worker.terminate();
+  renderProof();
+  let suggested=(state.personal||[]).filter(r=>(r.ocrFindings||[]).length).length;$("proofAuditProgress").textContent=`OCR scan completed. ${suggested} record(s) have a suggestion to inspect visually. OCR suggestions are not added to the correction list unless you confirm them.`;
+ }catch(err){$("proofAuditProgress").textContent="OCR scan unavailable: "+err.message+" You can still open each exception and compare the image manually."}
+ finally{btn.disabled=false}
+}
+$("scanProofBtn").addEventListener("click",scanProofImages);
+
+// Weekly workflow: month + sales owner + week keyed snapshots, stored locally.
+const WF_KEY="retention_workflow_v1";
+let workflowEntries=(()=>{try{return JSON.parse(localStorage.getItem(WF_KEY)||"{}")}catch(e){return {}}})();
+function wfKey(month,sales,week){return [month,sales,week].join("|")}
+function wfGet(month,sales,week){return workflowEntries[wfKey(month,sales,week)]||null}
+function wfSaveLocal(){try{localStorage.setItem(WF_KEY,JSON.stringify(workflowEntries))}catch(e){$("wfSaveStatus").textContent="Could not save: browser storage may be full."}}
+function wfEsc(v){return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function wfFillSales(){
+ let sel=$("wfSales"),old=sel.value, names=saleData().map(x=>x.sales);
+ sel.innerHTML='<option value="">Select sales owner</option>'+names.map(n=>`<option value="${wfEsc(n)}">${wfEsc(n)}</option>`).join("");
+ if(names.includes(old))sel.value=old;
+}
+let wfProblemImageData="",wfSuggestionImageData="";
+function wfPreview(kind,data,name){
+ const target=$(kind==="problem"?"wfProblemPreview":"wfSuggestionPreview");
+ target.innerHTML=data?`<div class="workflow-image-preview"><img src="${data}" alt="Attached ${kind}"><span>${wfEsc(name||"Attached image")}</span><button type="button" class="secondary" data-remove-wf-image="${kind}">Remove</button></div>`:"";
+}
+function wfHandleImage(kind,file){
+ if(!file){if(kind==="problem")wfProblemImageData="";else wfSuggestionImageData="";wfPreview(kind,"","");return}
+ if(!file.type.startsWith("image/")){alert("Please select an image file.");return}
+ if(file.size>1200000){alert("Please use an image smaller than 1.2 MB so it can be saved reliably in this browser.");return}
+ const reader=new FileReader();
+ reader.onload=()=>{if(kind==="problem")wfProblemImageData=reader.result;else wfSuggestionImageData=reader.result;wfPreview(kind,reader.result,file.name)};
+ reader.readAsDataURL(file);
+}
+function wfReadForm(){return {
+ notConfirmed:num($("wfNotConfirmed").value),newReferral:num($("wfNewReferral").value),
+ referralExisting:num($("wfReferralExisting").value),referralContacted:num($("wfReferralContacted").value),
+ assignmentTotal:num($("wfAssignmentTotal").value),called:num($("wfCalled").value),
+ edm:$("wfEdm").value,edmDate:$("wfEdmDate").value,submittedBy:$("wfSubmittedBy").value.trim(),notes:$("wfNotes").value.trim(),
+ problem:$("wfProblem").value.trim(),problemImage:wfProblemImageData,suggestion:$("wfSuggestion").value.trim(),suggestionImage:wfSuggestionImageData,
+ updatedAt:new Date().toISOString()
+}}
+function wfSetForm(d){
+ ["NotConfirmed","NewReferral","ReferralExisting","ReferralContacted","AssignmentTotal","Called"].forEach((k,i)=>$(["wfNotConfirmed","wfNewReferral","wfReferralExisting","wfReferralContacted","wfAssignmentTotal","wfCalled"][i]).value=d?d[["notConfirmed","newReferral","referralExisting","referralContacted","assignmentTotal","called"][i]]??"": "");
+ $("wfEdm").value=d?.edm||"pending";$("wfEdmDate").value=d?.edmDate||"";$("wfSubmittedBy").value=d?.submittedBy||"";$("wfNotes").value=d?.notes||"";
+ $("wfProblem").value=d?.problem||"";$("wfSuggestion").value=d?.suggestion||"";
+ wfProblemImageData=d?.problemImage||"";wfSuggestionImageData=d?.suggestionImage||"";
+ wfPreview("problem",wfProblemImageData,"Saved problem attachment");wfPreview("suggestion",wfSuggestionImageData,"Saved suggestion attachment");
+ $("wfProblemImage").value="";$("wfSuggestionImage").value="";
+}
+function wfLoad(){
+ if(activeAccess.role==="sales")$("wfSales").value=activeAccess.sales;
+ let m=$("wfMonth").value,s=$("wfSales").value,w=$("wfWeek").value;
+ if(!s){wfSetForm(null);$("wfSaveStatus").textContent="Please select a sales owner.";wfRender();return}
+ let d=wfGet(m,s,w);wfSetForm(d);
+ $("wfSaveStatus").textContent=d?"Saved entry loaded · "+new Date(d.updatedAt).toLocaleString():"No saved entry for this week yet.";
+ wfRender();
+}
+function wfSave(){
+ if(activeAccess.role==="sales")$("wfSales").value=activeAccess.sales;
+ let m=$("wfMonth").value,s=$("wfSales").value,w=$("wfWeek").value;
+ if(!m||!s){$("wfSaveStatus").textContent="Please select a reporting month and sales owner.";return}
+ let d=wfReadForm();
+ if(d.referralContacted>d.referralExisting){$("wfSaveStatus").textContent="Referral Contacted cannot be higher than Referral Existing.";return}
+ if(d.called>d.assignmentTotal&&d.assignmentTotal>0){$("wfSaveStatus").textContent="Called so far cannot exceed the monthly assignment quota.";return}
+ workflowEntries[wfKey(m,s,w)]=d;wfSaveLocal();$("wfSaveStatus").textContent="Weekly submission saved · "+new Date().toLocaleString();wfRender();
+}
+function wfProgressHTML(m,s){
+ let records=[1,2,3,4,5].map(w=>({week:w,d:wfGet(m,s,String(w))})).filter(x=>x.d);
+ if(!records.length)return '<div class="empty">No weekly submissions saved for this sales owner and month.</div>';
+ let rows=records.map(({week:w,d})=>{
+ let pct=d.assignmentTotal?Math.min(100,d.called/d.assignmentTotal*100):0;
+ return `<tr><td><b>Week ${w}</b></td><td class="num">${fmt(d.notConfirmed)}</td><td class="num">${fmt(d.newReferral)}</td><td class="num">${fmt(d.referralExisting)}</td><td class="num">${fmt(d.referralContacted)}</td><td class="num">${fmt(d.assignmentTotal)}</td><td class="num">${fmt(d.called)}</td><td><div class="workflow-progress"><i style="width:${pct}%"></i></div><span class="small">${fmt(pct,1)}%</span></td><td><span class="workflow-status ${d.edm==='done'?'':'pending'}">${d.edm==='done'?'Done':d.edm==='not-applicable'?'N/A':'Pending'}</span></td><td>${d.problem?wfEsc(d.problem):"—"} ${d.problemImage?`<a href="${d.problemImage}" target="_blank" rel="noopener">View image</a>`:""}</td><td>${d.suggestion?wfEsc(d.suggestion):"—"} ${d.suggestionImage?`<a href="${d.suggestionImage}" target="_blank" rel="noopener">View image</a>`:""}</td><td>${wfEsc(d.notes||"—")}</td></tr>`
+ }).join("");
+ return `<table class="data-table workflow-table"><thead><tr><th>Week</th><th>Not Confirmed Remaining</th><th>New Referral</th><th>Referral Existing</th><th>Referral Contacted</th><th>Assignment Quota</th><th>Called Cumulative</th><th>Call Completion</th><th>EDM</th><th>Problem / Evidence</th><th>Suggestion / Evidence</th><th>Notes</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+function wfRender(){
+ if(!$("wfSummary"))return;
+ if(activeAccess.role==="sales")$("wfSales").value=activeAccess.sales;
+ let m=$("wfMonth").value,s=$("wfSales").value,w=$("wfWeek").value;
+ let d=s?wfGet(m,s,w):null;
+ let pct=d&&d.assignmentTotal?d.called/d.assignmentTotal*100:0;
+ $("wfSummary").innerHTML=[
+  ["Not Confirmed Remaining",d?fmt(d.notConfirmed):"—","Lower is better"],
+  ["Referral Contacted",d?fmt(d.referralContacted):"—",d?fmt(d.referralExisting)+" existing":"Cumulative total"],
+  ["New Assignment Called",d?fmt(d.called):"—",d?fmt(pct,1)+"% of quota":"Cumulative total"],
+  ["EDM Status",d?(d.edm==="done"?"Done":d.edm==="not-applicable"?"N/A":"Pending"):"—",d?.edmDate||"Selected week"]
+ ].map(([a,b,c])=>`<div class="workflow-card"><div class="wf-label">${a}</div><div class="wf-value">${b}</div><div class="wf-sub">${c}</div></div>`).join("");
+ $("wfProgressTable").innerHTML=s?wfProgressHTML(m,s):'<div class="empty">Select a sales owner to view weekly progress.</div>';
+ let names=saleData().map(x=>x.sales);
+ let team=names.map(n=>({name:n,week:[1,2,3,4,5].map(x=>({w:x,d:wfGet(m,n,String(x))})).filter(x=>x.d).sort((a,b)=>b.w-a.w)[0]}));
+ $("wfTeamTable").innerHTML=team.some(x=>x.week)?`<table class="data-table"><thead><tr><th>Sales Owner</th><th>Latest Week</th><th>Not Confirmed Remaining</th><th>Referral Existing</th><th>Referral Contacted</th><th>Calls Completed</th><th>EDM</th><th>Last Updated</th></tr></thead><tbody>${team.filter(x=>x.week).map(x=>{let d=x.week.d;return `<tr><td><b>${wfEsc(x.name)}</b></td><td>Week ${x.week.w}</td><td class="num">${fmt(d.notConfirmed)}</td><td class="num">${fmt(d.referralExisting)}</td><td class="num">${fmt(d.referralContacted)}</td><td class="num">${fmt(d.called)} / ${fmt(d.assignmentTotal)}</td><td><span class="workflow-status ${d.edm==='done'?'':'pending'}">${d.edm==='done'?'Done':d.edm==='not-applicable'?'N/A':'Pending'}</span></td><td>${new Date(d.updatedAt).toLocaleDateString()}</td></tr>`}).join("")}</tbody></table>`:'<div class="empty">No sales submissions for this month yet.</div>';
+}
+function setSalesSubtab(tab){
+ if(activeAccess.role==="sales"){ $("salesStatusSelect").value=encodeURIComponent(activeAccess.sales); $("wfSales").value=activeAccess.sales; }
+ $("salesPerformanceTab").classList.toggle("hidden",tab!=="performance");
+ $("salesWorkflowTab").classList.toggle("hidden",tab!=="workflow");
+ document.querySelectorAll("#salesSubnav button").forEach(b=>b.classList.toggle("active",b.dataset.salesTab===tab));
+ if(tab==="workflow"){wfFillSales();wfRender();if(activeAccess.role==="leader"){document.querySelector("#salesWorkflowTab .note").innerHTML="<strong>Team Weekly Reports:</strong> Review submitted weekly reports from each sales owner. Select a month and sales owner to inspect the weekly history; team submission overview is shown below.";document.querySelector("#wfTeamPanel .paneltitle").textContent="Submitted Team Reports";document.querySelector("#wfTeamPanel .panelsub").textContent="Reports submitted by each sales owner for the selected month."}else{document.querySelector("#salesWorkflowTab .note").innerHTML="<strong>My Weekly Workflow:</strong> Submit your own weekly progress and review your previous monthly reports.";document.querySelector("#wfTeamPanel .paneltitle").textContent="Team submission overview"}}
+}
+
+function bindSalesRows(id){document.querySelectorAll("#"+id+" tbody tr").forEach(tr=>tr.addEventListener("click",()=>{let s=saleData().find(x=>x.sales===decodeURIComponent(tr.dataset.sales||""));if(!s)return;let act=Number(s.activationBonus??s.eligible??0),lot=Number(s.lotBonus||0),total=act+lot;$("drawerTitle").textContent=s.sales+" · Sales Detail";$("drawerBody").innerHTML=[["APP / Source",s.app],["Assigned Customers",fmt(s.assigned)],["Contacted Customers",fmt(s.contacted)],["Contact Rate",fmt(s.contacted/s.assigned*100,2)+"%"],["Active Customers (Deposit + Trading)",fmt(s.active)],["Active Rate",fmt(s.assigned?s.active/s.assigned*100:0,2)+"%"],["Contacted Active",fmt(s.contactedActive)],["Uncontacted Active",fmt(s.uncontactedActive)],["Contact-to-Active",fmt(s.contacted?s.contactedActive/s.contacted*100:0,2)+"%"],["Bonus-Eligible Activations",fmt(s.eligible)],["Deposit Persons",fmt(s.depositPersons)],["Net Deposit",usd(s.netDeposit)],["Trading Persons",fmt(s.tradingPersons)],["Trading Lots",fmt(s.lots,4)],["Eligible Activations",fmt(s.eligible)],["Activation Commission",`<span class="currency-toggle" data-usd="${act}" data-mode="usd">${usd(act)}</span><span class="currency-hint">↔ double-click for IDR</span>`],["Eligible Trading Lots",fmt(s.eligibleLots,4)],["Trading Commission",`<span class="currency-toggle" data-usd="${lot}" data-mode="usd">${usd(lot)}</span><span class="currency-hint">↔ double-click for IDR</span>`],["Total Commission",usd(total)+" · "+idr(total)]].map(([k,v])=>`<div class="field"><label>${k}</label><strong>${v??"—"}</strong></div>`).join("");$("drawerBack").classList.add("open");attachCurrencyToggles($("drawerBody"))}))}
+function closeDrawer(){$("drawerBack").classList.remove("open")}
+$("drawerBack").addEventListener("click",e=>{if(e.target===$("drawerBack"))closeDrawer()});
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer()});
+function navigate(p){if(activeAccess.role==="sales"&&!['sales','trends'].includes(p))p="sales";closeDrawer();document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));$("page-"+p).classList.add("active");document.querySelectorAll(".sidebar button[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===p));$("pageTitle").textContent=TITLES[p][0];$("pageSubtitle").textContent=TITLES[p][1];renderPage(p)}
+document.querySelector(".sidebar").addEventListener("click",e=>{let b=e.target.closest("button[data-page]");if(b)navigate(b.dataset.page)});
+
+function renderTrends(){renderDaily();renderMonthly();renderAnnual();renderResponseTimes()}
+function renderPage(p){({command:renderCommandCenter,overview:renderOverview,sales:renderSales,trends:renderTrends,customers:renderCustomers,proof:renderProof,upload:()=>{},accounts:renderAccounts}[p]||(()=>{}))()}
+function renderAll(){["command","overview","sales","trends","customers","proof"].forEach(renderPage)}
+function setTrendTab(tab){["daily","monthly","quarterly","annual"].forEach(t=>$("trend-"+t).classList.toggle("hidden",t!==tab));document.querySelectorAll("#trendTabs button").forEach(b=>{b.classList.toggle("secondary",b.dataset.trend===tab);b.classList.toggle("soft",b.dataset.trend!==tab)})}
+const RESPONSE_KEY="retention_response_snapshots_v1";
+function getResponseSnapshots(){try{return JSON.parse(localStorage.getItem(RESPONSE_KEY)||"[]")}catch(e){return []}}
+function setResponseSnapshots(rows){localStorage.setItem(RESPONSE_KEY,JSON.stringify(rows))}
+function parseResponseMinutes(v){let x=String(v||"").trim().toLowerCase();if(!x)return NaN;let m=x.match(/^(\d+):(\d{1,2})(?::(\d{1,2}))?$/);if(m)return m[3]!==undefined?(+m[1]*60 + +m[2] + +m[3]/60):(+m[1]+ +m[2]/60);m=x.match(/(?:(\d+(?:\.\d+)?)\s*m)?\s*(?:(\d+(?:\.\d+)?)\s*s)?$/);if(m&&(m[1]||m[2]))return +(m[1]||0)+ +(m[2]||0)/60;let n=Number(x.replace(",","."));return Number.isFinite(n)?n:NaN}
+function fmtResponseTime(min){if(!Number.isFinite(min))return "—";let sec=Math.round(min*60);return Math.floor(sec/60)+"m "+String(sec%60).padStart(2,"0")+"s"}
+function responseVisibleRows(snap){return (snap.rows||[]).map(r=>r.inside||r.outside?r:{...r,inside:{avgMinutes:Number(r.avgMinutes)||0,replied:Number(r.replied)||0},outside:{avgMinutes:0,replied:0}}).filter(r=>activeAccess.role!=="sales"||r.sales.toLowerCase()===activeAccess.sales.toLowerCase())}
+function responseMetrics(rows,key){let n=rows.reduce((a,r)=>a+(r[key]?.replied||0),0),avg=n?rows.reduce((a,r)=>a+(r[key]?.avgMinutes||0)*(r[key]?.replied||0),0)/n:0;return {replied:n,avgMinutes:avg}}
+function responseVisibleRows(snap){return (snap.rows||[]).map(r=>r.inside||r.outside?r:{...r,inside:{avgMinutes:Number(r.avgMinutes)||0,replied:Number(r.replied)||0},outside:{avgMinutes:0,replied:0}}).filter(r=>activeAccess.role!=="sales"||r.sales.toLowerCase()===activeAccess.sales.toLowerCase())}
+function renderResponseTimes(){let snaps=getResponseSnapshots().sort((a,b)=>b.asOf.localeCompare(a.asOf)||b.importedAt.localeCompare(a.importedAt));let latest=snaps[0];let tag=$("responseLatestTag"),kpis=$("responseKpis"),table=$("responseLatestTable"),updated=$("responseUpdatedAt"),history=$("responseHistoryTable");if(!latest){tag.textContent="No response data yet";kpis.innerHTML="";table.innerHTML='<div class="empty">Paste response-time data in Upload Center to begin.</div>';updated.textContent="";history.innerHTML='<div class="empty">No response-time snapshots saved.</div>';return}let rows=responseVisibleRows(latest),inside=responseMetrics(rows,"inside"),outside=responseMetrics(rows,"outside");tag.textContent="Latest data · "+latest.asOf;kpis.innerHTML=`<div class="kpi"><div class="kpi-label">Sales Included</div><div class="kpi-value">${rows.length}</div></div><div class="kpi"><div class="kpi-label">Inside Avg. · Target ≤ 2m</div><div class="kpi-value">${fmtResponseTime(inside.avgMinutes)}</div><div class="small">${inside.replied.toLocaleString()} replied</div></div><div class="kpi"><div class="kpi-label">Outside Avg. · Target ≤ 40m</div><div class="kpi-value">${fmtResponseTime(outside.avgMinutes)}</div><div class="small">${outside.replied.toLocaleString()} replied</div></div>`;table.innerHTML=rows.length?`<table class="data-table"><thead><tr><th>Sales</th><th>Inside Avg.</th><th>Inside Replied</th><th>Outside Avg.</th><th>Outside Replied</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${wfEsc(r.sales)}</b></td><td>${fmtResponseTime(r.inside?.avgMinutes??NaN)}</td><td>${(r.inside?.replied||0).toLocaleString()}</td><td>${fmtResponseTime(r.outside?.avgMinutes??NaN)}</td><td>${(r.outside?.replied||0).toLocaleString()}</td></tr>`).join("")}</tbody></table>`:'<div class="empty">No row for this sales account in the latest snapshot.</div>';updated.textContent=`Data date: ${latest.asOf} · Source period: ${latest.sourcePeriod||"—"} · Pasted: ${new Date(latest.importedAt).toLocaleString()}`;history.innerHTML=snaps.length?`<table class="data-table"><thead><tr><th>Data Date</th><th>Source Period</th><th>Sales Rows</th><th>Imported At</th></tr></thead><tbody>${snaps.map(x=>`<tr><td><b>${x.asOf}</b></td><td>${wfEsc(x.sourcePeriod||x.period||"—")}</td><td>${responseVisibleRows(x).length}</td><td>${new Date(x.importedAt).toLocaleString()}</td></tr>`).join("")}</tbody></table>`:'<div class="empty">No response-time snapshots saved.</div>';renderResponsePeriodTables(snaps)}
+let responseTrendPeriod="daily";
+function renderResponsePeriodTables(snaps){let keyFn=d=>responseTrendPeriod==="daily"?d.toISOString().slice(0,10):responseTrendPeriod==="monthly"?d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"):responseTrendPeriod==="quarterly"?d.getFullYear()+" Q"+(Math.floor(d.getMonth()/3)+1):String(d.getFullYear());let map={};snaps.forEach(s=>{let d=new Date(s.asOf+"T00:00:00"),k=keyFn(d);if(!map[k]||s.asOf>map[k].asOf||(s.asOf===map[k].asOf&&s.importedAt>map[k].importedAt))map[k]=s});let data=Object.entries(map).sort((a,b)=>b[0].localeCompare(a[0]));$("responsePeriodHistory").innerHTML=data.length?`<table class="data-table"><thead><tr><th>Period</th><th>Latest Data Date</th><th>Sales</th><th>Inside Avg.</th><th>Inside Replied</th><th>Outside Avg.</th><th>Outside Replied</th></tr></thead><tbody>${data.map(([k,s])=>{let rows=responseVisibleRows(s),inside=responseMetrics(rows,"inside"),outside=responseMetrics(rows,"outside");return `<tr><td><b>${k}</b></td><td>${s.asOf}</td><td>${rows.length}</td><td>${fmtResponseTime(inside.avgMinutes)}</td><td>${inside.replied.toLocaleString()}</td><td>${fmtResponseTime(outside.avgMinutes)}</td><td>${outside.replied.toLocaleString()}</td></tr>`}).join("")}</tbody></table>`:'<div class="empty">No response-time snapshots for this period.</div>';document.querySelectorAll("#responseTrendTabs button").forEach(b=>{b.classList.toggle("secondary",b.dataset.responsePeriod===responseTrendPeriod);b.classList.toggle("soft",b.dataset.responsePeriod!==responseTrendPeriod)})}
+document.getElementById("responseTrendTabs").addEventListener("click",e=>{let b=e.target.closest("button[data-response-period]");if(b){responseTrendPeriod=b.dataset.responsePeriod;renderResponseTimes()}})
+function saveResponsePaste(){try{if(activeAccess.role!=="leader"){alert("Only Leader can paste response-time data.");return}let asOf=$("responseAsOf").value,raw=$("responsePaste").value.trim(),selectedKind=$("responseCategory").value;if(!asOf||!raw){$("responsePasteStatus").textContent="Choose a data date and paste the rows first.";return}let lines=raw.split(/\r?\n/).filter(x=>x.trim()),parsed=[],bad=[],sourcePeriods=new Set(),incomingKinds=new Set();let parseCount=v=>{let n=Number(String(v??"").replace(/[, ]/g,""));return Number.isFinite(n)&&n>=0&&Number.isInteger(n)?n:NaN};let classify=v=>{let x=String(v||"").trim().toLowerCase();if(x.includes("非工作")||x.includes("outside")||x.includes("non-working")||x.includes("non working"))return "outside";if(x.includes("工作时间")||x.includes("inside")||x.includes("working hours")||x==="working")return "inside";return null};lines.forEach((line,i)=>{let c=line.includes("\t")?line.split("\t"):line.trim().split(/\s{2,}/);c=c.map(v=>String(v??"").trim());if(i===0&&(/sales|name|owner|销售/i.test(c.join(" "))||/^no$/i.test(c[0]||"")))return;if(c.length>=7){let sales=c[1],sid=c[2],sourcePeriod=c[3],kind=classify(c[4]),replied=parseCount(c[5]),avgMinutes=parseResponseMinutes(c[6]);if(!sales||!kind||!Number.isFinite(replied)||!Number.isFinite(avgMinutes)||avgMinutes<0){bad.push(i+1);return}if(sourcePeriod)sourcePeriods.add(sourcePeriod);if(kind===selectedKind){incomingKinds.add(kind);parsed.push({sales,sid,sourcePeriod,kind,replied,avgMinutes})}return}if(c.length>=3){let sales=c[0],avgMinutes=parseResponseMinutes(c[1]),replied=parseCount(c[2]);if(!sales||!Number.isFinite(avgMinutes)||avgMinutes<0||!Number.isFinite(replied)){bad.push(i+1);return}incomingKinds.add(selectedKind);parsed.push({sales,kind:selectedKind,replied,avgMinutes});return}bad.push(i+1)});if(bad.length||!parsed.length){$("responsePasteStatus").textContent=bad.length?"Could not read row(s): "+bad.join(", ")+". Check the original 7-column format.":"No rows matched "+(selectedKind==="inside"?"Inside Working Hours":"Outside Working Hours")+". Check the dropdown and pasted category.";return}let grouped=new Map();parsed.forEach(r=>{let key=r.sales.toLowerCase();if(!grouped.has(key))grouped.set(key,{sales:r.sales,inside:{weighted:0,replied:0},outside:{weighted:0,replied:0}});let g=grouped.get(key)[r.kind];g.weighted+=r.avgMinutes*r.replied;g.replied+=r.replied});let incoming=[...grouped.values()].map(g=>({sales:g.sales,inside:{avgMinutes:g.inside.replied?g.inside.weighted/g.inside.replied:0,replied:g.inside.replied},outside:{avgMinutes:g.outside.replied?g.outside.weighted/g.outside.replied:0,replied:g.outside.replied}}));let snaps=getResponseSnapshots(),existing=snaps.findIndex(x=>x.asOf===asOf),rows=incoming;if(existing>=0){let old=snaps[existing],merged=new Map((old.rows||[]).map(r=>[r.sales.toLowerCase(),JSON.parse(JSON.stringify(r))]));incoming.forEach(r=>{let k=r.sales.toLowerCase(),prior=merged.get(k)||{sales:r.sales,inside:{avgMinutes:0,replied:0},outside:{avgMinutes:0,replied:0}};if(incomingKinds.has("inside"))prior.inside=r.inside;if(incomingKinds.has("outside"))prior.outside=r.outside;merged.set(k,prior)});rows=[...merged.values()]}let snap={asOf,period:$("responsePeriod").value,sourcePeriod:[...new Set([...(existing>=0?[snaps[existing].sourcePeriod||""]:[]),...sourcePeriods])].filter(Boolean).join(", ")||"legacy 3-column",importedAt:new Date().toISOString(),rows};if(existing>=0)snaps.splice(existing,1);snaps.push(snap);setResponseSnapshots(snaps);$("responsePasteStatus").textContent="SUCCESS: "+parsed.length+" rows saved for "+(selectedKind==="inside"?"Inside Working Hours":"Outside Working Hours")+". "+(existing>=0?"Merged with the existing date; the other category was kept. ":"New date snapshot created. ")+"Total "+rows.length+" sales summaries."; $("responsePaste").value="";renderResponseTimes()}catch(e){$("responsePasteStatus").textContent="Could not save: "+e.message}}
+$("saveResponseDataBtn").addEventListener("click",saveResponsePaste);
+function initResponseTimes(){let d=$("responseAsOf");if(d&&!d.value)d.value=new Date().toISOString().slice(0,10);renderResponseTimes()}
+
+$("trendTabs").addEventListener("click",e=>{let b=e.target.closest("button[data-trend]");if(b)setTrendTab(b.dataset.trend)})
+$("customerSearch").addEventListener("input",renderCustomers);$("customerSales").addEventListener("change",renderCustomers);$("customerStage").addEventListener("change",renderCustomers);
+$("salesStatusSelect").addEventListener("change",renderSales);
+$("salesSubnav").addEventListener("click",e=>{let b=e.target.closest("button[data-sales-tab]");if(b)setSalesSubtab(b.dataset.salesTab)});
+["wfMonth","wfSales","wfWeek"].forEach(id=>$(id).addEventListener("change",wfLoad));
+$("wfLoadBtn").addEventListener("click",wfLoad);$("wfSaveBtn").addEventListener("click",wfSave);
+$("wfClearBtn").addEventListener("click",()=>{wfSetForm(null);$("wfSaveStatus").textContent="Form cleared. Saved entries are unchanged."});
+$("wfProblemImage").addEventListener("change",e=>wfHandleImage("problem",e.target.files[0]));
+$("wfSuggestionImage").addEventListener("change",e=>wfHandleImage("suggestion",e.target.files[0]));
+document.addEventListener("click",e=>{let b=e.target.closest("[data-remove-wf-image]");if(!b)return;let k=b.dataset.removeWfImage;if(k==="problem")wfProblemImageData="";else wfSuggestionImageData="";wfPreview(k,"","");});
+
+
+$("commandSalesFilter").addEventListener("change",renderCommandCenter);
+$("saveTargetsBtn").addEventListener("click",saveCommandTargets);
+$("proofSalesFilter").addEventListener("change",()=>{refreshProofStatusFilter();renderProof()});
+$("proofStatusFilter").addEventListener("change",renderProof);
+$("copyProofSummaryBtn").addEventListener("click",async()=>{
+ let text=$("proofSummaryText").value||"";
+ try{
+  if(navigator.clipboard&&navigator.clipboard.writeText){await navigator.clipboard.writeText(text)}
+  else{let box=$("proofSummaryText");box.focus();box.select();document.execCommand("copy")}
+  $("proofSummaryStatus").textContent="Message copied. You can paste it directly to the sales owner.";
+ }catch(e){let box=$("proofSummaryText");box.focus();box.select();$("proofSummaryStatus").textContent="Select the text and copy it manually (Ctrl/Cmd+C).";}
+});
+$("fxRate").addEventListener("change",()=>{renderCommandCenter();renderOverview();renderSales();renderDaily();renderMonthly();renderAnnual()});
+function updateSalesFilters(){let sales=saleData();if($("wfSales"))wfFillSales();$("customerSales").innerHTML='<option value="all">All sales owners</option>'+sales.map(s=>`<option>${s.sales}</option>`).join("")}
+function headerIndex(header,aliases){let n=header.map(norm);for(let a of aliases){let i=n.findIndex(v=>v===norm(a));if(i>=0)return i}for(let a of aliases){let i=n.findIndex(v=>v.includes(norm(a)));if(i>=0)return i}return -1}
+function sheetGrid(wb,names){for(let n of names){let found=wb.SheetNames.find(s=>norm(s)===norm(n));if(found)return XLSX.utils.sheet_to_json(wb.Sheets[found],{header:1,raw:true,defval:null})}return null}
+function parseSystem(wb){
+ let sumGrid=sheetGrid(wb,["销售绩效-销售绩效","销售绩效"]);if(!sumGrid)throw Error("Sales Summary worksheet was not found. Expected sheet 销售绩效-销售绩效.");
+ let h=sumGrid[0].map(x=>String(x??"")),ix={app:headerIndex(h,["来源"]),sales:headerIndex(h,["统计销售"]),month:headerIndex(h,["统计月度"]),date:headerIndex(h,["昨日"]),tag:headerIndex(h,["联系充值交易标签"]),assigned:headerIndex(h,["销售分配客户数"]),category:headerIndex(h,["分配客户数"]),deposit:headerIndex(h,["充值人数"]),net:headerIndex(h,["净充值"]),trading:headerIndex(h,["开仓人数"]),lots:headerIndex(h,["开仓手数"]),contacted:headerIndex(h,["联系人数"]),awards:headerIndex(h,["奖励人数"]),actBonus:headerIndex(h,["奖励金额_充值交易人数"]),eligibleLots:headerIndex(h,["奖励手数"]),lotBonus:headerIndex(h,["奖励金额_充值交易手数"])};
+ let context={app:"",sales:"",month:"",date:""},catBySales={},salesMetrics={},global=null;
+ for(let r of sumGrid.slice(1)){if(!r||!r.some(x=>x!==null&&x!==""))continue;
+  let get=k=>ix[k]>=0?r[ix[k]]:null;
+  if(get("app")!==null&&get("app")!==""&&String(get("app"))!=="total")context.app=String(get("app"));
+  if(get("sales")!==null&&get("sales")!==""&&String(get("sales"))!=="total")context.sales=String(get("sales"));
+  if(get("month")!==null&&get("month")!=="")context.month=String(get("month"));
+  if(get("date")!==null&&get("date")!=="")context.date=dateText(get("date"));
+  let tag=String(get("tag")??"").trim();
+  if(tag){
+   let key=tag;
+   if(context.sales){catBySales[context.sales]??={};catBySales[context.sales][key]=num(get("category"))}
+  }
+  if(String(get("month")??"").toLowerCase()==="total"&&context.sales&&context.sales!=="total"){
+   salesMetrics[context.sales]={sales:context.sales,app:context.app,assigned:num(get("assigned")),depositPersons:num(get("deposit")),netDeposit:num(get("net")),tradingPersons:num(get("trading")),lots:num(get("lots")),contacted:num(get("contacted")),eligible:num(get("awards")),activationBonus:num(get("actBonus")),eligibleLots:num(get("eligibleLots")),lotBonus:num(get("lotBonus")),categories:catBySales[context.sales]||{}};
+  }
+  if(String(get("app")??"").toLowerCase()==="total"){
+   global={assigned:(num(get("category"))||num(get("assigned"))),depositPersons:num(get("deposit")),netDeposit:num(get("net")),tradingPersons:num(get("trading")),lots:num(get("lots")),contacted:num(get("contacted")),eligible:num(get("awards")),activationBonus:num(get("actBonus")),eligibleLots:num(get("eligibleLots")),lotBonus:num(get("lotBonus"))};
+  }
+ }
+ let sales=Object.values(salesMetrics);
+ let reportMonth=(sumGrid.slice(1).map(r=>r[ix.month]).find(v=>v&&String(v).toLowerCase()!=="total")||"").toString();
+ let reportDate=dateText(sumGrid.slice(1).map(r=>r[ix.date]).find(v=>v&&String(v).toLowerCase()!=="total")||"");
+ if(!global){global={};for(let k of ["assigned","depositPersons","netDeposit","tradingPersons","lots","contacted","eligible","activationBonus","eligibleLots","lotBonus"])global[k]=sales.reduce((a,s)=>a+s[k],0)}
+ let categories=STATUS.map(s=>({key:s.key,label:s.label,stage:s.stage,count:sales.reduce((a,x)=>a+num(x.categories[s.key]),0)}));
+ let rewardGrid=sheetGrid(wb,["奖励明细-奖励明细","奖励明细"]),dailyMap={},customerAwardDates={},rewardDetails=[];
+ if(rewardGrid){
+  let rh=rewardGrid[0].map(x=>String(x??"")),ri={sid:headerIndex(rh,["sid"]),sales:headerIndex(rh,["Sales_最近一次"]),date:headerIndex(rh,["统计日期"]),tag:headerIndex(rh,["联系充值交易标签"]),lot:headerIndex(rh,["奖励手数"]),lotBonus:headerIndex(rh,["奖励金额_充值交易手数"]),activationBonus:headerIndex(rh,["奖励金额_充值交易人数"])},curSid="";
+  for(let r of rewardGrid.slice(1)){
+   let v=k=>ri[k]>=0?r[ri[k]]:null,rawSid=v("sid");
+   if(rawSid!==null&&rawSid!==""&&String(rawSid).toLowerCase()!=="total")curSid=String(rawSid);
+   if(String(rawSid).toLowerCase()==="total")break;
+   if(!curSid||String(v("tag")||"")!=="联系后_有充值、有交易")continue;
+   let dt=dateText(v("date"));
+   if(dt)dailyMap[dt]??={date:dt,newEligible:0};
+   let bonusCount=num(v("activationBonus"));
+   if(dt&&bonusCount>0&&(!customerAwardDates[curSid]||dt<customerAwardDates[curSid]))customerAwardDates[curSid]=dt;
+   rewardDetails.push({sid:curSid,date:dt,sales:v("sales")||"",lots:num(v("lot")),lotBonus:num(v("lotBonus")),activationBonus:bonusCount});
+  }
+  // Count one qualifying activation per SID on its earliest qualifying reward date.
+  for(let dt of Object.values(customerAwardDates)){dailyMap[dt]??={date:dt,newEligible:0};dailyMap[dt].newEligible++}
+ }
+ let exportGrid=sheetGrid(wb,["导出","Export"]),customers=[];
+ if(exportGrid){
+  let eh=exportGrid[0].map(x=>String(x??"")),ei={
+   sid:headerIndex(eh,["sid"]),country:headerIndex(eh,["国家归属"]),sales:headerIndex(eh,["Sales_最近一次"]),
+   assigned:headerIndex(eh,["sid最近分配时间"]),contactTime:headerIndex(eh,["Contacted Time"]),
+   contactStatus:headerIndex(eh,["是否已联系上"]),depositStatus:headerIndex(eh,["当月是否充值"]),
+   depDate:headerIndex(eh,["充提日期"]),tradeDate:headerIndex(eh,["开仓日期"]),
+   tag:headerIndex(eh,["联系充值交易标签"]),activation:headerIndex(eh,["是否激活"]),
+   net:headerIndex(eh,["净充值"]),lots:headerIndex(eh,["手数"]),
+   actReward:headerIndex(eh,["奖励金额_充值交易人数"]),lotReward:headerIndex(eh,["奖励金额_充值交易手数"])
+  },current=null;
+  for(let r of exportGrid.slice(1)){
+   let v=k=>ei[k]>=0?r[ei[k]]:null,raw=v("sid");
+   if(raw!==null&&raw!==""&&String(raw).toLowerCase()!=="total"){
+    current={
+     sid:String(raw),sales:String(v("sales")||""),country:String(v("country")||""),
+     assignedDate:dateText(v("assigned")),contactTime:dateTimeText(v("contactTime")),
+     contactStatus:String(v("contactStatus")||""),contacted:String(v("contactStatus")||"")==="已联系上",
+     depositStatus:String(v("depositStatus")||""),depositDate:dateText(v("depDate")),
+     tradingDate:dateText(v("tradeDate")),activationStatus:String(v("activation")||""),
+     netDeposit:num(v("net")),lots:num(v("lots")),activationReward:num(v("actReward")),
+     lotReward:num(v("lotReward")),tags:[],activities:[]
+    };
+    customers.push(current);
+   }
+   if(String(raw).toLowerCase()==="total")break;
+   if(!current)continue;
+   let tag=String(v("tag")||"");
+   if(tag&&!current.tags.includes(tag))current.tags.push(tag);
+   let dt=dateText(v("tradeDate")||v("depDate"));
+   if(dt)current.activities.push({date:dt,tag,lots:num(v("lots")),netDeposit:num(v("net"))});
+  }
+ }
+ // Active is strictly Deposit + Trading, regardless of whether the customer has been contacted.
+ let bySales=new Map(sales.map(s=>[s.sales,{active:0,contactedActive:0,uncontactedActive:0}]));
+ for(let c of customers){
+  c.active=(c.tags||[]).some(tag=>tag.includes("有充值")&&tag.includes("有交易"));
+  let a=bySales.get(c.sales)||{active:0,contactedActive:0,uncontactedActive:0};
+  if(c.active){
+   a.active++;
+   if(c.contacted)a.contactedActive++;
+   else a.uncontactedActive++;
+  }
+  bySales.set(c.sales,a);
+ }
+ for(let s of sales){
+  let a=bySales.get(s.sales)||{active:0,contactedActive:0,uncontactedActive:0};
+  s.active=a.active;s.contactedActive=a.contactedActive;s.uncontactedActive=a.uncontactedActive;
+  s.contactedDepTrade=a.contactedActive;s.uncontactedDepTrade=a.uncontactedActive;
+ }
+ global.active=sales.reduce((a,s)=>a+num(s.active),0);
+ global.contactedActive=sales.reduce((a,s)=>a+num(s.contactedActive),0);
+ global.uncontactedActive=sales.reduce((a,s)=>a+num(s.uncontactedActive),0);
+ return {reportMonth,reportDate,totals:global,sales,categories,daily:Object.values(dailyMap).sort((a,b)=>a.date.localeCompare(b.date)),customers,rewardDetails};
+}
+function ownerFromFilename(fileName){
+ let base=String(fileName||"").replace(/\.[^.]+$/,"").replace(/\s*\(\d+\)\s*$/,"").replace(/[_-](contact|proof|personal|retention)$/i,"").trim();
+ return base||"Unassigned";
+}
+function parsePersonal(wb,imagesByRow={},ownerName="Unassigned"){
+ let sheetName=wb.SheetNames.find(n=>norm(n)==="maincustomer")||wb.SheetNames[0];
+ let sheet=wb.Sheets[sheetName],grid=XLSX.utils.sheet_to_json(sheet,{header:1,raw:true,defval:null});
+ if(!grid.length)throw Error("The personal workbook has no readable rows.");
+ let h=grid[0].map(x=>String(x??"")),ix={
+  sid:headerIndex(h,["SID","Customer ID"]),name:headerIndex(h,["Name"]),
+  phone:headerIndex(h,["Phone Number","Phone"]),sales:headerIndex(h,["Sales","PIC"]),
+  contacted:headerIndex(h,["Contacted"]),call:headerIndex(h,["Call Data","Call"]),chatroom:headerIndex(h,["Chatroom Data","Chatroom"]),whatsapp:headerIndex(h,["WhatsApp Data","Whatsapp Data","WhatsApp"]),time:headerIndex(h,["Contacted Time"]),proof:headerIndex(h,["Contacted Proof"]),
+  deposit:headerIndex(h,["Deposit Date"]),trade:headerIndex(h,["Trading Date"]),notes:headerIndex(h,["Notes"])
+ };
+ if(ix.sid<0)throw Error("SID column was not found in the personal contact sheet.");
+ const colNum=letters=>{let n=0;for(let c of letters.toUpperCase())n=n*26+c.charCodeAt(0)-64;return n-1};
+ const numeric=v=>{let n=Number(v);return Number.isFinite(n)?n:0};
+ function getContacted(rowIndex,row){
+  const isOne=value=>{
+   if(value===true)return true;
+   if(typeof value==="number")return value===1;
+   let s=String(value??"").trim().toLowerCase();
+   return s==="1"||s==="true"||s==="yes";
+  };
+  // Channel flags are authoritative: any one of Call / Chatroom / WhatsApp = 1 means Contacted = 1.
+  let channelIndexes=[ix.call,ix.chatroom,ix.whatsapp].filter(x=>x>=0);
+  if(channelIndexes.length)return channelIndexes.some(c=>isOne(row[c]));
+  // Fallback for templates where channel headers are absent: evaluate the formula's referenced range.
+  let addr=XLSX.utils.encode_cell({r:rowIndex,c:ix.contacted}),cell=sheet[addr];
+  if(cell&&cell.f){
+   let f=String(cell.f).replace(/\$/g,"");
+   let m=f.match(/SUM\(([A-Z]{1,3})(\d+):([A-Z]{1,3})(\d+)\)/i);
+   if(m){
+    let c1=colNum(m[1]),c2=colNum(m[3]),r1=Number(m[2])-1,r2=Number(m[4])-1;
+    for(let rr=Math.min(r1,r2);rr<=Math.max(r1,r2);rr++){
+     for(let cc=Math.min(c1,c2);cc<=Math.max(c1,c2);cc++){
+      if(isOne(sheet[XLSX.utils.encode_cell({r:rr,c:cc})]?.v))return true;
+     }
+    }
+    return false;
+   }
+  }
+  return isOne(row[ix.contacted]);
+ }
+ // Build phone references from Customer Background by SID. Invalid/error cells are ignored.
+ let phoneRefs=new Map(),bgName=wb.SheetNames.find(n=>norm(n)==="customerbackground");
+ if(bgName){
+  let bg=XLSX.utils.sheet_to_json(wb.Sheets[bgName],{header:1,raw:true,defval:null});
+  if(bg.length){
+   let bh=bg[0].map(x=>String(x??"")),bi={sid:headerIndex(bh,["SID","Customer ID"]),phone:headerIndex(bh,["Phone Number","Phone"])};
+   if(bi.sid>=0&&bi.phone>=0)for(let rr of bg.slice(1)){
+    let sid=String(rr[bi.sid]??"").trim(),ph=String(rr[bi.phone]??"").trim(),digits=ph.replace(/\D/g,"");
+    if(sid&&digits.length>=7&&digits!=="#VALUE!"){
+     if(!phoneRefs.has(sid))phoneRefs.set(sid,new Set());
+     phoneRefs.get(sid).add(digits.slice(-10));
+    }
+   }
+  }
+ }
+ let out=[];
+ for(let i=1;i<grid.length;i++){
+  let row=grid[i]||[],v=k=>ix[k]>=0?row[ix[k]]:null,sid=String(v("sid")??"").trim();
+  if(!sid||sid.toLowerCase()==="total")continue;
+  let contacted=getContacted(i,row),time=dateTimeText(v("time")),dep=dateText(v("deposit")),trade=dateText(v("trade"));
+  let excelRow=i+1,rawImages=imagesByRow[excelRow]||[];
+  let proofImages=(ix.proof>=0?rawImages.filter(im=>!im.col||im.col===ix.proof+1):rawImages).map((im,j)=>({dataUrl:im.dataUrl,row:excelRow,col:im.col,index:j+1}));
+  let sales=String(v("sales")||ownerName||"Unassigned").trim(),automaticIssues=[],reviewFlags=[];
+  if(contacted&&!time)automaticIssues.push("Missing Contacted Time: at least one channel (Call / Chatroom / WhatsApp) = 1, but Contacted Time is blank");
+  if(contacted&&!proofImages.length)automaticIssues.push("Missing Proof: at least one channel (Call / Chatroom / WhatsApp) = 1, but no photo is embedded in this customer's Contacted Proof cell");
+  if(!contacted&&(time||proofImages.length))reviewFlags.push("Manual Review: all Call / Chatroom / WhatsApp flags are 0, but Contacted Time or a proof photo exists. Check the channel flags before correcting.");
+  let mainPhone=String(v("phone")??"").trim().replace(/\D/g,""),refs=phoneRefs.get(sid);
+  if(contacted&&proofImages.length&&mainPhone.length>=7&&refs&&refs.size&&!refs.has(mainPhone.slice(-10)))reviewFlags.push("Phone mismatch · verify against Customer Background");
+  out.push({
+   sid,name:String(v("name")||""),phone:String(v("phone")||""),sales,contacted,contactTime:time,
+   depositDate:dep,tradingDate:trade,notes:String(v("notes")||""),proofImages,excelRow,
+   channelFlags:{call:ix.call>=0?String(row[ix.call]??"0"):null,chatroom:ix.chatroom>=0?String(row[ix.chatroom]??"0"):null,whatsapp:ix.whatsapp>=0?String(row[ix.whatsapp]??"0"):null},
+   automaticIssues,confirmedIssues:[],reviewFlags,duplicate:false,ocrFindings:[],ocrChecked:false,
+   ocrStatus:"Not scanned",reviewStatus:automaticIssues.length?"Needs Correction":reviewFlags.length?"Manual Review":"No Exception",
+   proofSid:"",proofName:"",proofPhone:"",proofDate:"",proofNote:"",proofMatchSummary:""
+  });
+ }
+ // Duplicate SID check across the whole personal workbook; flag every occurrence.
+ let sidRows=new Map();
+ for(let r of out){if(!sidRows.has(r.sid))sidRows.set(r.sid,[]);sidRows.get(r.sid).push(r)}
+ for(let [sid,items] of sidRows){
+  if(items.length>1)for(let r of items){r.duplicate=true;r.automaticIssues.push(`Duplicate SID: appears ${items.length} times in this personal workbook (rows ${items.map(x=>x.excelRow).join(", ")})`);r.reviewStatus="Duplicate Input";}
+ }
+ return out;
+}
+function zipPath(base,target){
+ if(target.startsWith("/"))return target.replace(/^\/+/,"");
+ let parts=base.split("/");parts.pop();
+ for(let seg of target.split("/")){if(seg===".." )parts.pop();else if(seg!=="."&&seg!=="")parts.push(seg)}
+ return parts.join("/");
+}
+function localAttr(node,local){if(!node)return "";for(let a of Array.from(node.attributes||[])){if(a.localName===local)return a.value}return ""}
+function descendantsNS(node,name){return Array.from(node.getElementsByTagNameNS("*",name))}
+function parseXml(buffer){return new DOMParser().parseFromString(new TextDecoder().decode(buffer),"application/xml")}
+async function openZipArchive(file){
+ let buffer=await file.arrayBuffer(),view=new DataView(buffer),eocd=-1;
+ for(let i=view.byteLength-22;i>=Math.max(0,view.byteLength-65557);i--){if(view.getUint32(i,true)===0x06054b50){eocd=i;break}}
+ if(eocd<0)throw new Error("The workbook ZIP container could not be read.");
+ let total=view.getUint16(eocd+10,true),pos=view.getUint32(eocd+16,true),entries=new Map();
+ for(let i=0;i<total;i++){
+  if(view.getUint32(pos,true)!==0x02014b50)break;
+  let method=view.getUint16(pos+10,true),size=view.getUint32(pos+20,true),nameLen=view.getUint16(pos+28,true),extraLen=view.getUint16(pos+30,true),commentLen=view.getUint16(pos+32,true),localOffset=view.getUint32(pos+42,true);
+  let name=new TextDecoder().decode(new Uint8Array(buffer,pos+46,nameLen));
+  entries.set(name,{method,size,localOffset});
+  pos+=46+nameLen+extraLen+commentLen;
+ }
+ async function get(name){
+  let ent=entries.get(name);if(!ent)return null;
+  let lo=ent.localOffset,nl=view.getUint16(lo+26,true),el=view.getUint16(lo+28,true),begin=lo+30+nl+el,raw=buffer.slice(begin,begin+ent.size);
+  if(ent.method===0)return raw;
+  if(ent.method!==8)throw new Error("Unsupported XLSX compression method for "+name);
+  if(!("DecompressionStream"in window))throw new Error("This browser cannot decompress embedded XLSX images. Use Chrome or Edge.");
+  let stream=new Blob([raw]).stream().pipeThrough(new DecompressionStream("deflate-raw"));
+  return await new Response(stream).arrayBuffer();
+ }
+ return {entries,get};
+}
+async function extractEmbeddedImages(file,sheetName){
+ let zip=await openZipArchive(file),wbBuf=await zip.get("xl/workbook.xml"),relBuf=await zip.get("xl/_rels/workbook.xml.rels");
+ if(!wbBuf||!relBuf)return {};
+ let wbDoc=parseXml(wbBuf),relDoc=parseXml(relBuf),relMap={};
+ for(let rel of descendantsNS(relDoc,"Relationship"))relMap[rel.getAttribute("Id")]=zipPath("xl/workbook.xml",rel.getAttribute("Target"));
+ let sheet=descendantsNS(wbDoc,"sheet").find(x=>norm(x.getAttribute("name"))===norm(sheetName));
+ if(!sheet)return {};
+ let sheetRel=localAttr(sheet,"id"),sheetPath=relMap[sheetRel];if(!sheetPath)return {};
+ let sheetRelPath=sheetPath.split("/").slice(0,-1).join("/").replace(/\/$/,"")+"/_rels/"+sheetPath.split("/").pop()+".rels";
+ let sheetRelsBuf=await zip.get(sheetRelPath);if(!sheetRelsBuf)return {};
+ let sheetRels=parseXml(sheetRelsBuf),drawingRel=descendantsNS(sheetRels,"Relationship").find(x=>(x.getAttribute("Type")||"").endsWith("/drawing"));
+ if(!drawingRel)return {};
+ let drawingPath=zipPath(sheetPath,drawingRel.getAttribute("Target")),drawingBuf=await zip.get(drawingPath);if(!drawingBuf)return {};
+ let drawingDoc=parseXml(drawingBuf),drawingRelPath=drawingPath.split("/").slice(0,-1).join("/")+"/_rels/"+drawingPath.split("/").pop()+".rels";
+ let drawingRelsBuf=await zip.get(drawingRelPath);if(!drawingRelsBuf)return {};
+ let drawingRels=parseXml(drawingRelsBuf),mediaMap={};
+ for(let rel of descendantsNS(drawingRels,"Relationship"))mediaMap[rel.getAttribute("Id")]=zipPath(drawingPath,rel.getAttribute("Target"));
+ let out={};
+ for(let anchor of [...descendantsNS(drawingDoc,"oneCellAnchor"),...descendantsNS(drawingDoc,"twoCellAnchor")]){
+  let from=descendantsNS(anchor,"from")[0],rowNode=from?descendantsNS(from,"row")[0]:null;
+  let rowNum=rowNode?Number(rowNode.textContent)+1:0;
+  let colNode=from?descendantsNS(from,"col")[0]:null,colNum=colNode?Number(colNode.textContent)+1:0;
+  let blip=descendantsNS(anchor,"blip")[0],embed=localAttr(blip,"embed"),mediaPath=mediaMap[embed];
+  if(!rowNum||!mediaPath)continue;
+  let imageBuf=await zip.get(mediaPath);if(!imageBuf)continue;
+  let ext=mediaPath.split(".").pop().toLowerCase(),mime=ext==="png"?"image/png":ext==="gif"?"image/gif":ext==="bmp"?"image/bmp":"image/jpeg";
+  let bytes=new Uint8Array(imageBuf),binary="";
+  for(let i=0;i<bytes.length;i+=32768)binary+=String.fromCharCode(...bytes.subarray(i,i+32768));
+  (out[rowNum]??=[]).push({dataUrl:`data:${mime};base64,${btoa(binary)}`,mediaPath,col:colNum});
+ }
+ return out;
+}
+
+function ensureXLSX(){if(window.XLSX)return Promise.resolve(window.XLSX);return new Promise((resolve,reject)=>{let urls=["https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js","https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"];let n=0;function next(){if(n>=urls.length){reject(new Error("Could not load the Excel reader. Check your internet connection and try again."));return}let s=document.createElement("script");s.src=urls[n++];s.onload=()=>window.XLSX?resolve(window.XLSX):next();s.onerror=next;document.head.appendChild(s)}next()})}
+async function readWorkbook(file){await ensureXLSX();let buffer=await file.arrayBuffer();return XLSX.read(buffer,{type:"array",cellDates:true})}
+
+const UPLOAD_HISTORY_KEY="retention_intelligence_upload_history_v1";
+function getUploadHistory(){
+ try{return JSON.parse(localStorage.getItem(UPLOAD_HISTORY_KEY)||"[]")}catch(e){return []}
+}
+function saveUploadHistory(items){
+ try{localStorage.setItem(UPLOAD_HISTORY_KEY,JSON.stringify(items.slice(-100)));return true}catch(e){return false}
+}
+async function fileFingerprint(file){
+ const buffer=await file.arrayBuffer();
+ if(window.crypto&&crypto.subtle){
+  const digest=await crypto.subtle.digest("SHA-256",buffer);
+  return [...new Uint8Array(digest)].map(b=>b.toString(16).padStart(2,"0")).join("");
+ }
+ // Fallback fingerprint for browsers where SubtleCrypto is unavailable.
+ const bytes=new Uint8Array(buffer);let a=2166136261,b=0x9e3779b9;
+ for(let i=0;i<bytes.length;i++){a=Math.imul(a^bytes[i],16777619);b=Math.imul(b+bytes[i]+(b<<6)+(b>>>2),2246822519)}
+ return "fallback-"+(a>>>0).toString(16)+"-"+(b>>>0).toString(16)+"-"+bytes.length;
+}
+function formatHistoryTime(iso){
+ try{return new Date(iso).toLocaleString(undefined,{year:"numeric",month:"short",day:"2-digit",hour:"2-digit",minute:"2-digit"})}catch(e){return iso||"—"}
+}
+function renderUploadHistory(){
+ const items=getUploadHistory().slice().reverse();
+ const badge=$("historyCount"),table=$("uploadHistoryTable");
+ if(badge)badge.textContent=items.length+" import"+(items.length===1?"":"s");
+ if(!table)return;
+ if(!items.length){table.innerHTML='<div class="empty">No upload history yet. Successfully imported files will appear here.</div>';return}
+ table.innerHTML=`<table class="data-table"><thead><tr><th>Imported at</th><th>File</th><th>Type</th><th>Report / Owner</th><th>Records</th><th>Result</th></tr></thead><tbody>${items.map(x=>`<tr><td>${escHtml(formatHistoryTime(x.importedAt))}</td><td title="${escHtml(x.fileName)}">${escHtml(x.fileName)}</td><td>${x.kind==="system"?"System report":"Personal proof"}</td><td>${escHtml(x.label||"—")}</td><td>${Number(x.records||0).toLocaleString()}</td><td><span class="tag green">Imported</span></td></tr>`).join("")}</tbody></table>`;
+}
+async function checkDuplicateUpload(file,kind){
+ const fingerprint=await fileFingerprint(file);
+ const items=getUploadHistory();
+ const exact=items.find(x=>x.kind===kind&&x.fingerprint===fingerprint);
+ if(exact)return {duplicate:true,exact,fingerprint};
+ // A filename + size match with changed content is a warning, not a hard duplicate.
+ const similar=items.find(x=>x.kind===kind&&x.fileName===file.name&&x.size===file.size);
+ return {duplicate:false,similar,fingerprint};
+}
+function recordSuccessfulUpload(file,kind,fingerprint,meta={}){
+ const items=getUploadHistory();
+ items.push({
+  id:kind+"-"+Date.now()+"-"+Math.random().toString(36).slice(2,7),
+  kind,fileName:file.name,size:file.size,lastModified:file.lastModified||0,
+  fingerprint,importedAt:new Date().toISOString(),
+  label:meta.label||"",records:meta.records||0,proofImages:meta.proofImages||0
+ });
+ const saved=saveUploadHistory(items);
+ renderUploadHistory();
+ return saved;
+}
+function duplicateMessage(result,file,kind){
+ if(result.exact)return `This exact ${kind==="system"?"system report":"personal file"} was already imported on ${formatHistoryTime(result.exact.importedAt)}. No data was imported again. Check Upload History for the previous record.`;
+ if(result.similar)return `Warning: a file with the same name and size was imported on ${formatHistoryTime(result.similar.importedAt)}, but its content is different. Import can continue.`;
+ return "";
+}
+
+// Keep the latest personal proof workbook for each sales owner in browser IndexedDB.
+// This stores the original workbook locally so it can be reloaded after refresh.
+const PERSONAL_DB_NAME="retention_intelligence_personal_files_v1";
+const PERSONAL_STORE="sales_workbooks";
+function openPersonalDB(){
+ return new Promise((resolve,reject)=>{
+  if(!("indexedDB"in window)){reject(new Error("This browser does not support local workbook storage."));return}
+  let req=indexedDB.open(PERSONAL_DB_NAME,1);
+  req.onupgradeneeded=()=>{let db=req.result;if(!db.objectStoreNames.contains(PERSONAL_STORE))db.createObjectStore(PERSONAL_STORE,{keyPath:"owner"})};
+  req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error||new Error("Could not open local workbook storage."));
+ });
+}
+async function savePersonalWorkbook(owner,file,fingerprint,recordCount,proofCount){
+ let db=await openPersonalDB();
+ return new Promise((resolve,reject)=>{
+  let tx=db.transaction(PERSONAL_STORE,"readwrite");
+  tx.objectStore(PERSONAL_STORE).put({
+   owner,fileName:file.name,blob:file.slice(0,file.size,file.type||"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"),
+   fingerprint,recordCount,proofCount,importedAt:new Date().toISOString(),size:file.size
+  });
+  tx.oncomplete=()=>{db.close();resolve(true)};
+  tx.onerror=()=>{let e=tx.error;db.close();reject(e||new Error("Could not save personal workbook."))};
+  tx.onabort=()=>{let e=tx.error;db.close();reject(e||new Error("Saving personal workbook was cancelled."))};
+ });
+}
+async function getSavedPersonalWorkbooks(){
+ let db=await openPersonalDB();
+ return new Promise((resolve,reject)=>{
+  let tx=db.transaction(PERSONAL_STORE,"readonly"),req=tx.objectStore(PERSONAL_STORE).getAll();
+  req.onsuccess=()=>resolve(req.result||[]);
+  req.onerror=()=>reject(req.error||new Error("Could not read saved personal workbooks."));
+  tx.oncomplete=()=>db.close();
+  tx.onerror=()=>{db.close();reject(tx.error||new Error("Could not read saved personal workbooks."))};
+ });
+}
+async function restoreSavedPersonalWorkbooks(){
+ try{
+  let saved=await getSavedPersonalWorkbooks(),all=[];
+  for(let item of saved){
+   try{
+    let file=new File([item.blob],item.fileName||`${item.owner}.xlsx`,{type:item.blob?.type||"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",lastModified:Date.now()});
+    let wb=await readWorkbook(file),images=await extractEmbeddedImages(file,"Main Customer"),rows=parsePersonal(wb,images,item.owner);
+    all.push(...rows);
+   }catch(e){console.warn("Could not restore saved personal workbook for "+item.owner,e)}
+  }
+  state.personal=all;
+  refreshProofSalesFilter();
+  renderProof();
+  return saved.length;
+ }catch(e){
+  console.warn("Personal workbook restore unavailable:",e);
+  return 0;
+ }
+}
+$("systemUploadBtn").addEventListener("click",async()=>{
+ let f=$("systemFile").files[0];
+ if(!f){$("systemUploadStatus").textContent="Choose the Mandarin system workbook first.";return}
+ let btn=$("systemUploadBtn");btn.disabled=true;
+ $("systemUploadStatus").textContent="Checking upload history and reading workbook sheets…";
+ try{
+  let duplicate=await checkDuplicateUpload(f,"system");
+  if(duplicate.duplicate){$("systemUploadStatus").textContent=duplicateMessage(duplicate,f,"system");return}
+  if(duplicate.similar)$("systemUploadStatus").textContent=duplicateMessage(duplicate,f,"system")+" Reading workbook…";
+  let wb=await readWorkbook(f),data=parseSystem(wb);
+  if(!data.sales.length)throw new Error("No salesperson total rows were detected in Sales Summary.");
+  state.summary=data;state.customers=data.customers;state.rewardDetails=data.rewardDetails;
+  state.snapshots=(state.snapshots||[]).filter(x=>x.reportDate!==data.reportDate);
+  state.snapshots.push(data);state.snapshots.sort((a,b)=>String(a.reportDate).localeCompare(String(b.reportDate)));
+  state.source=f.name;state.imported=true;
+  let saved=recordSuccessfulUpload(f,"system",duplicate.fingerprint,{label:data.reportMonth+" · "+data.reportDate,records:data.customers.length});
+  $("systemUploadStatus").textContent=`Success: ${data.sales.length} sales owners, ${data.customers.length.toLocaleString()} customer records and ${data.rewardDetails.length.toLocaleString()} reward-detail rows imported.${saved?"":" Warning: browser storage is full, so upload history could not be saved."}`;
+  $("importLog").textContent=`Imported ${f.name} · ${data.reportMonth} · snapshot ${data.reportDate}.`;
+  updateSalesFilters();renderAll();navigate("overview");
+ }catch(e){$("systemUploadStatus").textContent="Import failed: "+e.message;$("importLog").textContent="Import failed: "+e.message}
+ finally{btn.disabled=false}
+});
+$("personalUploadBtn").addEventListener("click",async()=>{
+ let f=$("personalFile").files[0];
+ if(!f){$("personalUploadStatus").textContent="Choose the personal contact workbook first.";return}
+ let btn=$("personalUploadBtn");btn.disabled=true;
+ $("personalUploadStatus").textContent="Checking upload history, reading customer records and embedded proof images…";
+ try{
+  let duplicate=await checkDuplicateUpload(f,"personal");
+  if(duplicate.duplicate){$("personalUploadStatus").textContent=duplicateMessage(duplicate,f,"personal");return}
+  if(duplicate.similar)$("personalUploadStatus").textContent=duplicateMessage(duplicate,f,"personal")+" Reading workbook…";
+  let wb=await readWorkbook(f),imageMap=await extractEmbeddedImages(f,"Main Customer"),owner=ownerFromFilename(f.name),data=parsePersonal(wb,imageMap,owner);
+  let proofCount=data.reduce((a,r)=>a+r.proofImages.length,0),contactedRows=data.filter(x=>x.contacted),exceptions=data.filter(x=>x.automaticIssues.length||x.confirmedIssues.length);
+  // Keep one current workbook per sales owner; importing an updated file replaces only that owner's current records.
+  state.personal=[...(state.personal||[]).filter(r=>r.sales!==owner),...data];
+  let persistenceMessage="";
+  try{await savePersonalWorkbook(owner,f,duplicate.fingerprint,data.length,proofCount)}
+  catch(storageError){persistenceMessage=" Warning: this workbook could not be saved for restoration after refresh. Check browser storage permissions/space."}
+  refreshProofSalesFilter();
+  $("proofSalesFilter").value=encodeURIComponent(owner);
+  let saved=recordSuccessfulUpload(f,"personal",duplicate.fingerprint,{label:owner,records:data.length,proofImages:proofCount});
+  $("personalUploadStatus").textContent=`Success: ${data.length.toLocaleString()} customer records for ${owner}; ${contactedRows.length.toLocaleString()} Contacted = 1; ${proofCount.toLocaleString()} embedded proof image(s) mapped; ${exceptions.length.toLocaleString()} structural / confirmed exception(s).${saved?"":" Warning: upload history metadata could not be saved."}${persistenceMessage}`;
+  $("importLog").textContent=`Imported personal file ${f.name} · ${data.length.toLocaleString()} rows · ${proofCount} embedded proof images. Latest workbook for ${owner} is saved locally.`;
+  renderProof();navigate("proof");
+ }catch(e){$("personalUploadStatus").textContent="Import failed: "+e.message;$("importLog").textContent="Personal import failed: "+e.message}
+ finally{btn.disabled=false}
+});
+
+let activeAccess={role:"leader",sales:""};
+const ACCOUNT_KEY="retention_sales_accounts_v1";
+function getAccounts(){try{return JSON.parse(localStorage.getItem(ACCOUNT_KEY)||"{}")}catch(e){return {}}}
+function setAccounts(a){localStorage.setItem(ACCOUNT_KEY,JSON.stringify(a))}
+function b64(bytes){return btoa(String.fromCharCode(...new Uint8Array(bytes)))}
+async function makePasswordHash(password,salt){
+ if(!crypto?.subtle)throw new Error("Secure password hashing is unavailable in this browser context. Open the HTML through localhost to test account setup.");
+ const enc=new TextEncoder(),key=await crypto.subtle.importKey("raw",enc.encode(password),"PBKDF2",false,["deriveBits"]);
+ const bits=await crypto.subtle.deriveBits({name:"PBKDF2",salt:enc.encode(salt),iterations:150000,hash:"SHA-256"},key,256);
+ return b64(bits);
+}
+function accessPopulateOwners(){
+ const names=saleData().map(x=>x.sales),fill=(sel)=>{if(!sel)return;let old=sel.value;sel.innerHTML='<option value="">Select sales owner</option>'+names.map(n=>`<option value="${wfEsc(n)}">${wfEsc(n)}</option>`).join("");if(names.includes(old))sel.value=old};
+ fill($("accessOwner"));fill($("accountOwner"));
+}
+function accessRoleUI(){
+ const role=$("accessRole").value;
+ $("accessOwnerWrap").classList.add("access-hidden");
+ $("salesLoginFields").classList.toggle("access-hidden",role!=="sales");
+ accessPopulateOwners();
+}
+async function enterAccess(){
+ const role=$("accessRole").value;let owner="";
+ if(role==="sales"){
+  const username=$("salesUsername").value.trim(),password=$("salesPassword").value;
+  const accounts=getAccounts(),entry=Object.values(accounts).find(a=>a.username.toLowerCase()===username.toLowerCase()&&a.active!==false);
+  if(!entry){alert("Account not found or inactive. Please ask the Leader to create or activate your account.");return}
+  if(!password||await makePasswordHash(password,entry.salt)!==entry.passwordHash){alert("Incorrect username or password.");return}
+  owner=entry.owner;
+ }
+ activeAccess={role,sales:owner};
+ $("accessGate").classList.add("access-hidden");
+ $("accessPill").textContent=role==="leader"?"LEADER ACCESS":"SALES ACCESS · "+owner.toUpperCase();
+ $("salesPageHeading").textContent=role==="leader"?"Sales Performance":"My Dashboard";
+ $("salesPageSubheading").textContent=role==="leader"?"Review each sales owner's active customers, status movement and commission in one place.":"Your personal dashboard: customer progress, activation, targets and commission.";
+ const navs=[...document.querySelectorAll(".sidebar button[data-page]")];
+ navs.forEach(b=>{const allowed=role==="leader"||["sales","trends"].includes(b.dataset.page);b.classList.toggle("access-hidden",!allowed)});
+ ["#trendTabs","#trend-daily","#trend-monthly","#trend-quarterly","#trend-annual"].forEach(sel=>{let el=document.querySelector(sel);if(el)el.classList.toggle("access-hidden",role==="sales")});
+ $("wfTeamPanel").classList.toggle("access-hidden",role!=="leader");
+ $("wfSubmissionPanel").classList.toggle("access-hidden",role==="leader");
+ const salesSelect=$("salesStatusSelect"),wfSales=$("wfSales");
+ document.querySelector("#page-sales .pagehead .filters").classList.toggle("access-hidden",role==="sales");
+ document.querySelectorAll("#salesSubnav [data-sales-tab='performance']").forEach(b=>b.textContent=role==="leader"?"Performance":"My Dashboard");
+ if(role==="sales"){
+  salesSelect.value=encodeURIComponent(owner);salesSelect.disabled=true;
+  wfFillSales();wfSales.value=owner;wfSales.disabled=true;
+  document.querySelectorAll("#salesPerformanceTab .note").forEach(n=>n.classList.add("access-hidden"));
+  navigate("sales");setSalesSubtab("performance");
+ }else{
+  salesSelect.disabled=false;wfSales.disabled=false;
+  document.querySelectorAll("#salesPerformanceTab .note").forEach(n=>n.classList.remove("access-hidden"));
+  navigate("command");
+ }
+ renderAll();wfRender();renderResponseTimes();
+}
+function exitAccess(){
+ activeAccess={role:"leader",sales:""};
+ ["#trendTabs","#trend-daily","#trend-monthly","#trend-quarterly","#trend-annual"].forEach(sel=>{let el=document.querySelector(sel);if(el)el.classList.remove("access-hidden")});
+ $("accessRole").value="leader";$("salesUsername").value="";$("salesPassword").value="";accessRoleUI();
+ $("accessGate").classList.remove("access-hidden");
+ $("salesStatusSelect").disabled=false;$("wfSales").disabled=false;
+}
+function renderAccounts(){
+ accessPopulateOwners();const accounts=getAccounts(),rows=Object.values(accounts);
+ $("accountsTable").innerHTML=rows.length?`<table class="data-table"><thead><tr><th>Sales Owner</th><th>Username</th><th>Status</th><th>Last Updated</th></tr></thead><tbody>${rows.map(a=>`<tr><td><b>${wfEsc(a.owner)}</b></td><td>${wfEsc(a.username)}</td><td><span class="workflow-status ${a.active===false?'pending':''}">${a.active===false?'Inactive':'Active'}</span></td><td>${a.updatedAt?new Date(a.updatedAt).toLocaleString():"—"}</td></tr>`).join("")}</tbody></table>`:'<div class="empty">No sales accounts created yet. Create the first account using the form above.</div>';
+}
+async function saveAccount(){
+ const owner=$("accountOwner").value,username=$("accountUsername").value.trim(),password=$("accountPassword").value;
+ if(!owner||!username||password.length<8){$("accountSaveStatus").textContent="Select an owner, enter a username and use a password of at least 8 characters.";return}
+ const accounts=getAccounts(),key=owner.toLowerCase();
+ if(Object.entries(accounts).some(([k,a])=>k!==key&&a.username.toLowerCase()===username.toLowerCase())){$("accountSaveStatus").textContent="That username is already in use.";return}
+ try{const salt=b64(crypto.getRandomValues(new Uint8Array(16)));const passwordHash=await makePasswordHash(password,salt);accounts[key]={owner,username,salt,passwordHash,active:true,updatedAt:new Date().toISOString()};setAccounts(accounts);$("accountPassword").value="";$("accountSaveStatus").textContent="Account saved in this browser. Password is stored as a salted hash.";renderAccounts()}
+ catch(e){$("accountSaveStatus").textContent=e.message}
+}
+$("accessRole").addEventListener("change",accessRoleUI);
+$("accessContinue").addEventListener("click",enterAccess);
+$("accessLogout").addEventListener("click",exitAccess);
+$("saveAccountBtn").addEventListener("click",saveAccount);
+
+async function init(){
+ updateSalesFilters();renderAll();renderUploadHistory();
+ await restoreSavedPersonalWorkbooks();
+ initResponseTimes();
+ renderCommandCenter();
+}
+init();
+</script>
+</body></html>
