@@ -1441,6 +1441,14 @@ $("personalUploadBtn").addEventListener("click",async()=>{
  finally{btn.disabled=false}
 });
 
+const ACCOUNT_ROSTER=["Ita Trade Will","Dipa Trade Will","Julius BtcDana","Dani BtcDana"];
+async function accountApi(action,payload={}){
+ if(!supabaseClient)throw new Error("Supabase client unavailable.");
+ const {data,error}=await supabaseClient.functions.invoke("account-management",{body:{action,...payload}});
+ if(error)throw new Error(error.message||"Account service request failed.");
+ if(data?.error)throw new Error(data.error);
+ return data||{};
+}
 let activeAccess={role:"leader",sales:""};
 const ACCOUNT_KEY="retention_sales_accounts_v1";
 function getAccounts(){try{return JSON.parse(localStorage.getItem(ACCOUNT_KEY)||"{}")}catch(e){return {}}}
