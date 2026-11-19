@@ -1074,7 +1074,7 @@ function parseSystem(wb){
  let exportGrid=sheetGrid(wb,["导出","Export"]),customers=[];
  if(exportGrid){
   let eh=exportGrid[0].map(x=>String(x??"")),ei={
-   sid:headerIndex(eh,["sid"]),country:headerIndex(eh,["国家归属"]),sales:headerIndex(eh,["Sales_最近一次"]),
+   sid:headerIndex(eh,["sid"]),country:headerIndex(eh,["国家归属"]),sales:headerIndex(eh,["Sales_最近一次","Sales","统计销售"]),
    assigned:headerIndex(eh,["sid最近分配时间"]),contactTime:headerIndex(eh,["Contacted Time"]),
    contactStatus:headerIndex(eh,["是否已联系上"]),depositStatus:headerIndex(eh,["当月是否充值"]),
    depDate:headerIndex(eh,["充提日期"]),tradeDate:headerIndex(eh,["开仓日期"]),
